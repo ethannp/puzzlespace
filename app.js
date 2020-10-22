@@ -23,10 +23,9 @@ let formatDate = today.toDateString();
 let selectElement = document.getElementById('date');
 selectElement.innerHTML = formatDate;
 
-var number = -1;
 var puzzles = [];
+var number = -1;
 var answers = [];
-
 $(document).ready(function () {
     $.getJSON("PuzzleDatabase.json", function (data) {
         for (let item in data.Sheet1) {
@@ -38,9 +37,15 @@ $(document).ready(function () {
             element.innerHTML += item+"<br>";*/
         }
         cycleClick();
-    }).fail(function () {
-        console.log('nooo');
-    });
+    }).fail(function () {});
+    //localstorage
+    if (typeof (Storage) !== "undefined") {
+        answers = JSON.parse(window.localStorage.getItem('answers'));
+        console.log(answers);
+    } else {
+        console.log('no storage')
+    }
+
 });
 
 function cycleClick() {
@@ -80,27 +85,28 @@ function checkAns() {
         answers.push(ans);
         elementtext.innerHTML = "'" + cleaned + "' was incorrect.";
     }
+    window.localStorage.setItem('answers', JSON.stringify(answers));
     showResponse();
 }
 
-function showResponse(){
+function showResponse() {
     document.getElementById('submitinput').value = ''; // get rid of previous input
-    document.getElementById('puzzleli').innerHTML='';
-    let count=0;
-    for (let i = answers.length-1; i >= 0; i--) {
-        if (answers[i].puzzlenum == number && count<11) {
+    document.getElementById('puzzleli').innerHTML = '';
+    let count = 0;
+    for (let i = answers.length - 1; i >= 0; i--) {
+        if (answers[i].puzzlenum == number && count < 11) {
             count++;
             var node = "";
             if (answers[i].correct) { // correct (bold and green)
-                node="<li id=green><b>"+answers[i].str+"</b></li>";
+                node = "<li id=green><b>" + answers[i].str + "</b></li>";
             }
-            else{
-                node = "<li>"+answers[i].str+"</li>";
+            else {
+                node = "<li>" + answers[i].str + "</li>";
             }
             var list = document.getElementById('puzzleli'); // add to list of previous guesses
             list.innerHTML += node;
             var green = document.getElementById('green');
-            if(green!=null){
+            if (green != null) {
                 green.style.color = "#31bd87"
             }
         }
