@@ -39,17 +39,12 @@ $(document).ready(function () {
         cycleClick();
     }).fail(function () { });
     //localstorage
-    if (typeof (Storage) !== "undefined") {
+    if (typeof (Storage) !== "undefined" && 'answers' in localStorage) {
         answers = JSON.parse(window.localStorage.getItem('answers'));
-        if (answers != null) {
-            console.log(answers);
-        }
-        else {
-            console.log('empty')
-            answers = [];
-        }
+        console.log(answers);
     } else {
         console.log('no storage')
+        answers = [];
     }
 
 });
