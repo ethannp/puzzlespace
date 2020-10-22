@@ -86,8 +86,10 @@ function checkAns() {
 function showResponse(){
     document.getElementById('submitinput').value = ''; // get rid of previous input
     document.getElementById('puzzleli').innerHTML='';
+    let count=0;
     for (let i = answers.length-1; i >= 0; i--) {
-        if (answers[i].puzzlenum == number) {
+        if (answers[i].puzzlenum == number && count<11) {
+            count++;
             var node = "";
             if (answers[i].correct) { // correct (bold and green)
                 node="<li id=green><b>"+answers[i].str+"</b></li>";
