@@ -3,7 +3,7 @@ body {
   }
   
   ul {
-    /*font-family: helvetica;*/
+    font-family: monospace;
   }
   
   #date {
