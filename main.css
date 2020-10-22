@@ -1,0 +1,18 @@
+body {
+    font-family: helvetica;
+  }
+  
+  ul {
+    font-family: monospace;
+  }
+  
+  #date {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+  }
+  br2{
+    display: block;
+    content: "";
+    margin-top: 0;
+  }
