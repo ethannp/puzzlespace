@@ -37,11 +37,17 @@ $(document).ready(function () {
             element.innerHTML += item+"<br>";*/
         }
         cycleClick();
-    }).fail(function () {});
+    }).fail(function () { });
     //localstorage
     if (typeof (Storage) !== "undefined") {
         answers = JSON.parse(window.localStorage.getItem('answers'));
-        console.log(answers);
+        if (answers != null) {
+            console.log(answers);
+        }
+        else {
+            console.log('empty')
+            answers = [];
+        }
     } else {
         console.log('no storage')
     }
@@ -111,4 +117,10 @@ function showResponse() {
             }
         }
     }
+}
+
+function clearStorage() {
+    window.localStorage.removeItem('answers');
+    answers = [];
+    console.log('clear');
 }
