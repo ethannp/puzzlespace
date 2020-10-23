@@ -6,6 +6,7 @@
     --bg-primary: #23232e;
     --bg-secondary: #141418;
     --transition-speed: 350ms;
+    text-align: center;
 }
 
 body {
