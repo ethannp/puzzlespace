@@ -14,8 +14,11 @@
 }
 
 ul{
-    text-align:center;
     list-style-position: inside;
+    padding:0;
+}
+li{
+    text-align:center;
 }
 
 body {
@@ -26,7 +29,8 @@ body {
 }
 
 body::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 0.8rem;
+    height:0.8rem;
 }
 
 body::-webkit-scrollbar-track {
@@ -93,11 +97,11 @@ main {
 }
 
 .fa-primary {
-    color: #ff7eee;
+    color: #46b4eb;
 }
 
 .fa-secondary {
-    color: #df49a6;
+    color: #46b4eb;
 }
 
 .fa-primary,
