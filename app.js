@@ -8,7 +8,7 @@ let Puzzle = class {
             this.body = body.replaceAll("\n", "<br2>");
             this.imagelink = imagelink;
             this.hint = hint;
-            this.solution = solution;
+            this.solution = solution.split(",");
             this.puzzlelink = puzzlelink;
             this.solutionlink = solutionlink;
             this.difficult = difficulty;
@@ -79,14 +79,16 @@ function checkAns() {
     var elementtext = document.getElementById('submission');
     var cleaned = elementinput.value.replaceAll(" ", "").replace(/[^A-Za-z0-9]/g, "").toLowerCase();
     if (cleaned !== "") {
-        if (cleaned == ref.solution.toLowerCase()) {
+        if (ref.solution.includes(cleaned)) {
             elementtext.innerHTML = "Correct!"
+            elementtext.style.color="#31bd87";
             let ans = { puzzlenum: number, str: cleaned, correct: true };
             answers.push(ans);
         } else {
             let ans = { puzzlenum: number, str: cleaned, correct: false };
             answers.push(ans);
             elementtext.innerHTML = "'" + cleaned + "' was incorrect.";
+            elementtext.style.color="#fa4659";
         }
         window.localStorage.setItem('answers', JSON.stringify(answers));
         showResponse();

@@ -1,12 +1,21 @@
 :root {
-    font-family: "Montserrat";
     font-size: 16px;
     --text-primary: #b6b6b6;
     --text-secondary: #ececec;
     --bg-primary: #23232e;
     --bg-secondary: #141418;
-    --transition-speed: 350ms;
     text-align: center;
+    font-family: "Montserrat", serif;
+}
+
+@font-face{
+    font-family: "Montserrats", serif;
+    src: url('https://fonts.googleapis.com/css?family=Montserrat');
+}
+
+ul{
+    text-align:center;
+    list-style-position: inside;
 }
 
 body {
@@ -29,7 +38,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 main {
-    margin-left: 6rem;
+    margin-left:19rem;
     /* relative to font size on root element, 5rem = 5*16=80 */
     padding: 1rem;
 }
@@ -93,7 +102,7 @@ main {
 
 .fa-primary,
 .fa-secondary {
-    transition: "600ms";
+    /*transition: "600ms";*/
 }
 
 .logo {
@@ -108,15 +117,10 @@ main {
     width: 100%;
 }
 
-.logo svg {
-    transition: var(--transition-speed);
-}
 
 .logo-text {
     display: inline;
     position: absolute;
-    left: -999px;
-    transition: var(--transition-speed);
 }
 
 
@@ -148,21 +152,20 @@ main {
 @media only screen and (min-width: 600px) {
     .navbar {
         top: 0;
-        width: 5rem;
+        width: 18rem;
         height: 100vh;
-        transition: var(--transition-speed);
     }
-    .navbar:hover {
+    /*.navbar:hover {
         width: 18rem;
         transition: var(--transition-speed);
-    }
-    .navbar:hover .link-text {
+    }*/
+    .navbar .link-text {
         display: inline;
     }
-    .navbar:hover .logo svg {
+    .navbar .logo svg {
         margin-left: 14.9rem;
     }
-    .navbar:hover .logo-text {
+    .navbar .logo-text {
         left: 0px;
     }
 }
