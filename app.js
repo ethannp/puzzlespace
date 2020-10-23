@@ -1,33 +1,34 @@
 'use strict';
 
 let Puzzle = class {
-    constructor(name, hunt, flavortext, body, imagelink, hint, solution, puzzlelink, solutionlink, difficulty, tags) {
-        this.name = name;
-        this.hunt = hunt;
-        this.flavortext = flavortext;
-        this.body = body.replaceAll("\n", "<br2>");
-        this.imagelink = imagelink;
-        this.hint = hint;
-        this.solution = solution;
-        this.puzzlelink = puzzlelink;
-        this.solutionlink = solutionlink;
-        this.difficult = difficulty;
-        this.tags = tags.split(","); // split into individual words
+        constructor(name, hunt, flavortext, body, imagelink, hint, solution, puzzlelink, solutionlink, difficulty, tags) {
+            this.name = name;
+            this.hunt = hunt;
+            this.flavortext = flavortext;
+            this.body = body.replaceAll("\n", "<br2>");
+            this.imagelink = imagelink;
+            this.hint = hint;
+            this.solution = solution;
+            this.puzzlelink = puzzlelink;
+            this.solutionlink = solutionlink;
+            this.difficult = difficulty;
+            this.tags = tags.split(","); // split into individual words
+
+        }
 
     }
-
-}
-
-let today = new Date();
-let formatDate = today.toDateString();
-let selectElement = document.getElementById('date');
-selectElement.innerHTML = formatDate;
+    /* date
+    let today = new Date();
+    let formatDate = today.toDateString();
+    let selectElement = document.getElementById('date');
+    selectElement.innerHTML = formatDate;
+    */
 
 var puzzles = [];
 var number = -1;
 var answers = [];
-$(document).ready(function () {
-    $.getJSON("PuzzleDatabase.json", function (data) {
+$(document).ready(function() {
+    $.getJSON("PuzzleDatabase.json", function(data) {
         for (let item in data.Sheet1) {
             let testPuzzle = new Puzzle(item, data.Sheet1[`${item}`]["From Hunt"], data.Sheet1[`${item}`]["Flavor Text"], data.Sheet1[`${item}`]["Body"], data.Sheet1[`${item}`]["Image Links"], data.Sheet1[`${item}`]["Hint"], data.Sheet1[`${item}`]["Solution"], data.Sheet1[`${item}`]["Puzzle Link"], data.Sheet1[`${item}`]["Solution Link"], data.Sheet1[`${item}`]["Difficulty"], data.Sheet1[`${item}`]["Tags"])
             puzzles.push(testPuzzle);
@@ -37,9 +38,9 @@ $(document).ready(function () {
             element.innerHTML += item+"<br>";*/
         }
         cycleClick();
-    }).fail(function () { });
+    }).fail(function() {});
     //localstorage
-    if (typeof (Storage) !== "undefined" && 'answers' in localStorage) {
+    if (typeof(Storage) !== "undefined" && 'answers' in localStorage) {
         answers = JSON.parse(window.localStorage.getItem('answers'));
         console.log(answers);
     } else {
@@ -52,8 +53,7 @@ $(document).ready(function () {
 function cycleClick() {
     if (number < puzzles.length - 1) {
         number++;
-    }
-    else {
+    } else {
         number = 0;
     }
     var puz = document.createElement("div");
@@ -76,18 +76,19 @@ function checkAns() {
     var elementinput = document.getElementById('submitinput');
     var elementtext = document.getElementById('submission');
     var cleaned = elementinput.value.replaceAll(" ", "").replace(/[^A-Za-z0-9]/g, "").toLowerCase();
-    if (cleaned == ref.solution.toLowerCase()) {
-        elementtext.innerHTML = "Correct!"
-        let ans = { puzzlenum: number, str: cleaned, correct: true };
-        answers.push(ans);
+    if (cleaned !== "") {
+        if (cleaned == ref.solution.toLowerCase()) {
+            elementtext.innerHTML = "Correct!"
+            let ans = { puzzlenum: number, str: cleaned, correct: true };
+            answers.push(ans);
+        } else {
+            let ans = { puzzlenum: number, str: cleaned, correct: false };
+            answers.push(ans);
+            elementtext.innerHTML = "'" + cleaned + "' was incorrect.";
+        }
+        window.localStorage.setItem('answers', JSON.stringify(answers));
+        showResponse();
     }
-    else {
-        let ans = { puzzlenum: number, str: cleaned, correct: false };
-        answers.push(ans);
-        elementtext.innerHTML = "'" + cleaned + "' was incorrect.";
-    }
-    window.localStorage.setItem('answers', JSON.stringify(answers));
-    showResponse();
 }
 
 function showResponse() {
@@ -99,14 +100,13 @@ function showResponse() {
             count++;
             var node = "";
             if (answers[i].correct) { // correct (bold and green)
-                node = "<li id=green><b>" + answers[i].str + "</b></li>";
-            }
-            else {
+                node = "<li id=green" + i + "><b>" + answers[i].str + "</b></li>";
+            } else {
                 node = "<li>" + answers[i].str + "</li>";
             }
             var list = document.getElementById('puzzleli'); // add to list of previous guesses
             list.innerHTML += node;
-            var green = document.getElementById('green');
+            var green = document.getElementById('green' + i);
             if (green != null) {
                 green.style.color = "#31bd87"
             }
