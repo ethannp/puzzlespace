@@ -28,7 +28,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 main {
-    margin-left: 5rem;
+    margin-left: 6rem;
     /* relative to font size on root element, 5rem = 5*16=80 */
     padding: 1rem;
 }

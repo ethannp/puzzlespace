@@ -1,0 +1,22 @@
+:root {
+    font-family: "Montserrat";
+    font-size: 16px;
+    --text-primary: #b6b6b6;
+    --text-secondary: #ececec;
+    --bg-primary: #23232e;
+    --bg-secondary: #141418;
+    --transition-speed: 350ms;
+}
+
+body {
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin-left: 6rem;
+    /* relative to font size on root element, 5rem = 5*16=80 */
+    padding: 1rem;
+}

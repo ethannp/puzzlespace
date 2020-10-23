@@ -25,10 +25,12 @@ let Puzzle = class {
     */
 
 var puzzles = [];
-var number = -1;
 var answers = [];
+var number;
+
 $(document).ready(function() {
     $.getJSON("PuzzleDatabase.json", function(data) {
+        number = -1;
         for (let item in data.Sheet1) {
             let testPuzzle = new Puzzle(item, data.Sheet1[`${item}`]["From Hunt"], data.Sheet1[`${item}`]["Flavor Text"], data.Sheet1[`${item}`]["Body"], data.Sheet1[`${item}`]["Image Links"], data.Sheet1[`${item}`]["Hint"], data.Sheet1[`${item}`]["Solution"], data.Sheet1[`${item}`]["Puzzle Link"], data.Sheet1[`${item}`]["Solution Link"], data.Sheet1[`${item}`]["Difficulty"], data.Sheet1[`${item}`]["Tags"])
             puzzles.push(testPuzzle);
