@@ -6,11 +6,29 @@
     --bg-secondary: #141418;
     text-align: center;
     font-family: "Montserrat", serif;
+    padding-bottom: 5rem;
 }
 
 @font-face{
     font-family: "Montserrats", serif;
     src: url('https://fonts.googleapis.com/css?family=Montserrat');
+}
+
+#puzzleCycle{
+    border: solid #e3e3e3 2px;
+    padding:2rem;
+    border-radius:20px;
+}
+#bottom{
+    border: solid #e3e3e3 2px;
+    background:#e3e3e3;
+    padding:2rem;
+    border-radius:20px;
+}
+
+div{
+    max-width:1100px;
+    margin:auto;
 }
 
 ul{
@@ -21,11 +39,19 @@ li{
     text-align:center;
 }
 
+img{
+    max-width:100%;
+    max-width: height 100%;
+    height:auto;
+    width:auto;
+    
+}
+
 body {
     color: black;
     background-color: white;
     margin: 0;
-    padding: 0;
+    padding:0;
 }
 
 body::-webkit-scrollbar {
@@ -184,5 +210,5 @@ main {
 br2 {
     display: block;
     content: "";
-    margin-top: 0;
+    margin-top: 5px;
 }
