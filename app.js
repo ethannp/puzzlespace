@@ -63,7 +63,7 @@ function cycleClick() {
     if (element != null) {
         element.appendChild(puz);
         let ref = puzzles[number];
-        element.innerHTML = "<h2>" + ref.name + "</h2><br2><h4>" + ref.flavortext + "</h4><br2><p>" + ref.body + "</p>";
+        element.innerHTML = "<h2>" + ref.name + "</h2><h4>" + ref.flavortext + "</h4><p>" + ref.body + "</p>";
         if (ref.imagelink != "") {
             var img = document.createElement('img');
             img.src = ref.imagelink;
@@ -99,10 +99,11 @@ function checkAns() {
 
 function showResponse() {
     document.getElementById('submitinput').value = ''; // get rid of previous input
-    document.getElementById('puzzleli').innerHTML = '';
+    document.getElementById('col1').innerHTML = '';
+    document.getElementById('col2').innerHTML = '';
     let count = 0;
     for (let i = answers.length - 1; i >= 0; i--) {
-        if (answers[i].puzzlenum == number && count < 11) {
+        if (answers[i].puzzlenum == number && count < 20) {
             count++;
             var node = "";
             if (answers[i].correct) { // correct (bold and green)
@@ -110,7 +111,13 @@ function showResponse() {
             } else {
                 node = "<li>" + answers[i].str + "</li>";
             }
-            var list = document.getElementById('puzzleli'); // add to list of previous guesses
+            var list;
+            if(count<=10){
+                list = document.getElementById('col1'); // add to list of previous guesses
+            }
+            else{
+                list = document.getElementById('col2');
+            }
             list.innerHTML += node;
             var green = document.getElementById('green' + i);
             if (green != null) {
