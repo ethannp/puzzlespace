@@ -230,3 +230,9 @@ br2 {
   content: "";
   margin-top: 5px;
 }
+
+canvas {
+  width: 100%;
+  height: auto;
+  background: #111;
+}
