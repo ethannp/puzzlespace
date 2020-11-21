@@ -38,50 +38,89 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 var canvas = document.getElementById("starfield");
-var context = canvas.getContext("2d");
-var stars = 500;
-var colorrange = [0, 60, 240];
-for (var i = 0; i < stars; i++) {
-  var x = Math.random() * canvas.offsetWidth;
-  var y = Math.random() * canvas.offsetHeight;
-  var radius = Math.random() * 1.2;
-  var hue = colorrange[getRandom(0, colorrange.length - 1)];
-  var sat = getRandom(50, 100);
-  context.beginPath();
-  context.arc(x, y, radius, 0, 360);
-  context.fillStyle = "hsl(" + hue + ", " + sat + "%, 88%)";
-  context.fill();
+if (canvas) { // check if canvas exists
+  var context = canvas.getContext("2d");
+  var stars = 500;
+  var colorrange = [0, 60, 240];
+  for (var i = 0; i < stars; i++) {
+    var x = Math.random() * canvas.offsetWidth;
+    var y = Math.random() * canvas.offsetHeight;
+    var radius = Math.random() * 1.2;
+    var hue = colorrange[getRandom(0, colorrange.length - 1)];
+    var sat = getRandom(50, 100);
+    context.beginPath();
+    context.arc(x, y, radius, 0, 360);
+    context.fillStyle = "hsl(" + hue + ", " + sat + "%, 88%)";
+    context.fill();
+  }
 }
 
 var puzzles = [];
 var answers = [];
 var number;
 
+
 $(document).ready(function () {
-  $.getJSON("PuzzleDatabase.json", function (data) {
+  number = -1;
+  $.get('https://spreadsheets.google.com/feeds/list/1FYPMrEl7SuaF9M1wci-kfzvgYxEh7pJbXQndWkSArY8/od6/public/basic?alt=json', function (jsondata) {
+
+    let data = jsondata["feed"]["entry"];
+
     number = -1;
-    for (let item in data.Sheet1) {
+    for (let item in data) {
+      let puzzledata = data[item]["content"]["$t"]; // puzzledata is the string that you are reading
+      console.log(puzzledata);
+      let title = data[item]["title"]["$t"];
+
+
+      //if doing task 1: assign values into these variables
+      //uncomment to test
+
+      /*let hunt = "";
+      let flavor = "";
+      let body = "";
+      let imagel = "";
+      let hint = "";
+      let solution = "";
+      let puzlink = "";
+      let sollink = "";
+      let tags = "";
+      let diff = "";
       let testPuzzle = new Puzzle(
-        item,
-        data.Sheet1[`${item}`]["From Hunt"],
-        data.Sheet1[`${item}`]["Flavor Text"],
-        data.Sheet1[`${item}`]["Body"],
-        data.Sheet1[`${item}`]["Image Links"],
-        data.Sheet1[`${item}`]["Hint"],
-        data.Sheet1[`${item}`]["Solution"],
-        data.Sheet1[`${item}`]["Puzzle Link"],
-        data.Sheet1[`${item}`]["Solution Link"],
-        data.Sheet1[`${item}`]["Difficulty"],
-        data.Sheet1[`${item}`]["Tags"]
+        title, hunt, flavor, body, imagel, hint, solution, puzlink, sollink, diff, tags
       );
+      */
+
+      // if doing task2: uncomment this line to test
+      // modify the string puzzledatafix
+      /*
+      let puzzledatafix = "";
+      
+
+        write your code to do it here --!
+
+      
+      let datafix = JSON.parse("{"+puzzledatafix+"}");
+      let testPuzzle = new Puzzle(
+        title,
+        datafix["fromhunt"],
+        datafix["flavortext"],
+        datafix["body"],
+        datafix["imagelinks"],
+        datafix["hint"],
+        datafix["solution"],
+        datafix["puzzlelink""],
+        datafix["solutionlink"],
+        datafix["tags"],
+        datafix["difficulty"]
+      );*/
+      
+      
+      console.log(testPuzzle);
       puzzles.push(testPuzzle);
-      /*var p = document.createElement("paragraph");
-            var element = document.getElementById('puzzles');
-            element.appendChild(p);
-            element.innerHTML += item+"<br>";*/
     }
     cycleClick();
-  }).fail(function () {});
+  }).fail(function () { });
   //localstorage
   if (typeof Storage !== "undefined" && "answers" in localStorage) {
     answers = JSON.parse(window.localStorage.getItem("answers"));
