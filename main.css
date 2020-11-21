@@ -18,11 +18,11 @@
     background:white;
     border-radius:10px;
     padding:2rem;*/
-  color: black;
+  color: rgb(242, 242, 242);
 }
 
 #bottom {
-  background: #f2f5ff;
+  background: rgb(230, 230, 230);
   padding: 2rem;
   border-radius: 10px;
 }
@@ -33,18 +33,22 @@ div {
 }
 
 h1 {
+  color: rgb(242, 242, 242);
   font-size: 3em;
 }
 
 h2 {
+  color: rgb(242, 242, 242);
   font-size: 2.5em;
 }
 
 h3 {
+  color: rgb(242, 242, 242);
   font-size: 1.6em;
 }
 
 h4 {
+  color: rgb(242, 242, 242);
   font-size: 1.1em;
 }
 
@@ -76,10 +80,10 @@ img {
 
 body {
   color: black;
-  background-color: white;
+  background-color: rgb(44, 44, 44);
   margin: 0;
   padding: 0;
-  margin-top:0px;
+  margin-top: 0px;
 }
 
 body::-webkit-scrollbar {
@@ -230,10 +234,4 @@ br2 {
   display: block;
   content: "";
   margin-top: 5px;
-}
-
-canvas {
-  width: 100%;
-  height: auto;
-  background: #111;
 }
