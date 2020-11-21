@@ -17,7 +17,7 @@ let Puzzle = class {
     this.name = name;
     this.hunt = hunt;
     this.flavortext = flavortext;
-    this.body = body.replaceAll("\n", "<br2>");
+    this.body = body;
     this.imagelink = imagelink;
     this.hint = hint;
     this.solution = solution.split(",");
@@ -69,38 +69,27 @@ $(document).ready(function () {
     number = -1;
     for (let item in data) {
       let puzzledata = data[item]["content"]["$t"]; // puzzledata is the string that you are reading
-      console.log(puzzledata);
       let title = data[item]["title"]["$t"];
 
 
-      //if doing task 1: assign values into these variables
-      //uncomment to test
-
-      /*let hunt = "";
-      let flavor = "";
-      let body = "";
-      let imagel = "";
-      let hint = "";
-      let solution = "";
-      let puzlink = "";
-      let sollink = "";
-      let tags = "";
-      let diff = "";
-      let testPuzzle = new Puzzle(
-        title, hunt, flavor, body, imagel, hint, solution, puzlink, sollink, diff, tags
-      );
-      */
-
-      // if doing task2: uncomment this line to test
-      // modify the string puzzledatafix
-      /*
       let puzzledatafix = "";
-      
 
-        write your code to do it here --!
+      puzzledatafix = puzzledata.replace("fromhunt", "§fromhunt§").replace("flavortext", "§flavortext§").replace("body", "§body§").replace("imagelinks", "§imagelinks§").replace("hint", "§hint§").replace("solution", "§solution§").replace("puzzlelink", "§puzzlelink§").replace("solutionlink", "§solutionlink§").replace("tags", "§tags§").replace("difficulty", "§difficulty§");
+      puzzledatafix += "  §";
+      puzzledatafix = puzzledatafix.replace(/\r?\n/g, "<br2>");
+      let prevfound = 1;
 
-      
-      let datafix = JSON.parse("{"+puzzledatafix+"}");
+      for (let i = 0; i < (puzzledatafix.match(/§/g) || []).length - 1; i += 2) {
+        var index = puzzledatafix.indexOf("§", prevfound);
+        prevfound = index + 1;
+        var temp = puzzledatafix.slice(0, index + 2) + "\"" + puzzledatafix.slice(index+3, puzzledatafix.indexOf("§", prevfound)-2) + "\"" + puzzledatafix.slice(puzzledatafix.indexOf("§", prevfound)-2);
+        puzzledatafix = temp;
+        prevfound = puzzledatafix.indexOf("§", prevfound)+1;
+      }
+      puzzledatafix = puzzledatafix.replaceAll("§","\"")
+      puzzledatafix = puzzledatafix.slice(0,puzzledatafix.length-3);
+
+      let datafix = JSON.parse("{" + puzzledatafix + "}");
       let testPuzzle = new Puzzle(
         title,
         datafix["fromhunt"],
@@ -109,13 +98,11 @@ $(document).ready(function () {
         datafix["imagelinks"],
         datafix["hint"],
         datafix["solution"],
-        datafix["puzzlelink""],
+        datafix["puzzlelink"],
         datafix["solutionlink"],
         datafix["tags"],
         datafix["difficulty"]
-      );*/
-      
-      
+      );
       console.log(testPuzzle);
       puzzles.push(testPuzzle);
     }
