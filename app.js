@@ -14,17 +14,28 @@ let Puzzle = class {
     difficulty,
     tags
   ) {
-    this.name = name;
-    this.hunt = hunt;
-    this.flavortext = flavortext;
-    this.body = body;
-    this.imagelink = imagelink;
-    this.hint = hint;
-    this.solution = solution.split(",");
-    this.puzzlelink = puzzlelink;
-    this.solutionlink = solutionlink;
-    this.difficult = difficulty;
-    this.tags = tags.split(","); // split into individual words
+    if (name === undefined) this.name = "";
+    else this.name = name;
+    if (hunt === undefined) this.hunt = "";
+    else this.hunt = hunt;
+    if (flavortext === undefined) this.flavortext = "";
+    else this.flavortext = flavortext;
+    if (body === undefined) this.body = "";
+    else this.body = body;
+    if (imagelink === undefined) this.imagelink = "";
+    else this.imagelink = imagelink;
+    if (hint === undefined) this.hint = "";
+    else this.hint = hint;
+    if (solution === undefined) this.solution = "";
+    else this.solution = solution.split(",");
+    if (puzzlelink === undefined) this.puzzlelink = "";
+    else this.puzzlelink = puzzlelink;
+    if (solutionlink === undefined) this.solutionlink = "";
+    else this.solutionlink = solutionlink;
+    if (difficulty === undefined) this.difficulty = "";
+    else this.difficulty = difficulty;
+    if (tags === undefined) this.tags = "";
+    else this.tags = tags.split(","); // split into individual words
   }
 };
 /* date
@@ -38,7 +49,8 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 var canvas = document.getElementById("starfield");
-if (canvas) { // check if canvas exists
+if (canvas) {
+  // check if canvas exists
   var context = canvas.getContext("2d");
   var stars = 500;
   var colorrange = [0, 60, 240];
@@ -58,7 +70,6 @@ if (canvas) { // check if canvas exists
 var puzzles = [];
 var answers = [];
 var number;
-
 
 $(document).ready(function () {
   number = -1;
@@ -101,8 +112,7 @@ $(document).ready(function () {
       console.log(testPuzzle);
       puzzles.push(testPuzzle);
     }
-    cycleClick();
-  }).fail(function () { });
+  ).fail(function () {});
   //localstorage
   if (typeof Storage !== "undefined" && "answers" in localStorage) {
     answers = JSON.parse(window.localStorage.getItem("answers"));
