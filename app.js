@@ -68,17 +68,13 @@ $(document).ready(function () {
 
     number = -1;
     for (let item in data) {
-      let puzzledata = data[item]["content"]["$t"]; // puzzledata is the string that you are reading
+      let puzzledata = data[item]["content"]["$t"];
       let title = data[item]["title"]["$t"];
-
-
       let puzzledatafix = "";
-
       puzzledatafix = puzzledata.replace("fromhunt", "§fromhunt§").replace("flavortext", "§flavortext§").replace("body", "§body§").replace("imagelinks", "§imagelinks§").replace("hint", "§hint§").replace("solution", "§solution§").replace("puzzlelink", "§puzzlelink§").replace("solutionlink", "§solutionlink§").replace("tags", "§tags§").replace("difficulty", "§difficulty§");
       puzzledatafix += "  §";
       puzzledatafix = puzzledatafix.replace(/\r?\n/g, "<br2>");
       let prevfound = 1;
-
       for (let i = 0; i < (puzzledatafix.match(/§/g) || []).length - 1; i += 2) {
         var index = puzzledatafix.indexOf("§", prevfound);
         prevfound = index + 1;
@@ -88,7 +84,6 @@ $(document).ready(function () {
       }
       puzzledatafix = puzzledatafix.replaceAll("§","\"")
       puzzledatafix = puzzledatafix.slice(0,puzzledatafix.length-3);
-
       let datafix = JSON.parse("{" + puzzledatafix + "}");
       let testPuzzle = new Puzzle(
         title,
