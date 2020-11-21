@@ -14,17 +14,28 @@ let Puzzle = class {
     difficulty,
     tags
   ) {
-    this.name = name;
-    this.hunt = hunt;
-    this.flavortext = flavortext;
-    this.body = body;
-    this.imagelink = imagelink;
-    this.hint = hint;
-    this.solution = solution.split(",");
-    this.puzzlelink = puzzlelink;
-    this.solutionlink = solutionlink;
-    this.difficult = difficulty;
-    this.tags = tags.split(","); // split into individual words
+    if (name === undefined) this.name = "";
+    else this.name = name;
+    if (hunt === undefined) this.hunt = "";
+    else this.hunt = hunt;
+    if (flavortext === undefined) this.flavortext = "";
+    else this.flavortext = flavortext;
+    if (body === undefined) this.body = "";
+    else this.body = body;
+    if (imagelink === undefined) this.imagelink = "";
+    else this.imagelink = imagelink;
+    if (hint === undefined) this.hint = "";
+    else this.hint = hint;
+    if (solution === undefined) this.solution = "";
+    else this.solution = solution.split(",");
+    if (puzzlelink === undefined) this.puzzlelink = "";
+    else this.puzzlelink = puzzlelink;
+    if (solutionlink === undefined) this.solutionlink = "";
+    else this.solutionlink = solutionlink;
+    if (difficulty === undefined) this.difficulty = "";
+    else this.difficulty = difficulty;
+    if (tags === undefined) this.tags = "";
+    else this.tags = tags.split(","); // split into individual words
   }
 };
 /* date
@@ -38,7 +49,8 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 var canvas = document.getElementById("starfield");
-if (canvas) { // check if canvas exists
+if (canvas) {
+  // check if canvas exists
   var context = canvas.getContext("2d");
   var stars = 500;
   var colorrange = [0, 60, 240];
@@ -59,55 +71,77 @@ var puzzles = [];
 var answers = [];
 var number;
 
-
 $(document).ready(function () {
   number = -1;
-  $.get('https://spreadsheets.google.com/feeds/list/1FYPMrEl7SuaF9M1wci-kfzvgYxEh7pJbXQndWkSArY8/od6/public/basic?alt=json', function (jsondata) {
+  $.get(
+    "https://spreadsheets.google.com/feeds/list/1FYPMrEl7SuaF9M1wci-kfzvgYxEh7pJbXQndWkSArY8/od6/public/basic?alt=json",
+    function (jsondata) {
+      let data = jsondata["feed"]["entry"];
 
-    let data = jsondata["feed"]["entry"];
+      number = -1;
+      for (let item in data) {
+        let puzzledata = data[item]["content"]["$t"]; // puzzledata is the string that you are reading
+        let title = data[item]["title"]["$t"];
 
-    number = -1;
-    for (let item in data) {
-      let puzzledata = data[item]["content"]["$t"]; // puzzledata is the string that you are reading
-      let title = data[item]["title"]["$t"];
+        let puzzledatafix = "";
 
+        puzzledatafix = puzzledata
+          .replace("fromhunt", "§fromhunt§")
+          .replace("flavortext", "§flavortext§")
+          .replace("body", "§body§")
+          .replace("imagelinks", "§imagelinks§")
+          .replace("hint", "§hint§")
+          .replace("solution", "§solution§")
+          .replace("puzzlelink", "§puzzlelink§")
+          .replace("solutionlink", "§solutionlink§")
+          .replace("tags", "§tags§")
+          .replace("difficulty", "§difficulty§");
+        puzzledatafix += "  §";
+        puzzledatafix = puzzledatafix.replace(/\r?\n/g, "<br2>");
+        let prevfound = 1;
 
-      let puzzledatafix = "";
+        for (
+          let i = 0;
+          i < (puzzledatafix.match(/§/g) || []).length - 1;
+          i += 2
+        ) {
+          var index = puzzledatafix.indexOf("§", prevfound);
+          prevfound = index + 1;
+          var temp =
+            puzzledatafix.slice(0, index + 2) +
+            '"' +
+            puzzledatafix.slice(
+              index + 3,
+              puzzledatafix.indexOf("§", prevfound) - 2
+            ) +
+            '"' +
+            puzzledatafix.slice(puzzledatafix.indexOf("§", prevfound) - 2);
+          puzzledatafix = temp;
+          prevfound = puzzledatafix.indexOf("§", prevfound) + 1;
+        }
+        puzzledatafix = puzzledatafix.replaceAll("§", '"');
+        puzzledatafix = puzzledatafix.slice(0, puzzledatafix.length - 3);
 
-      puzzledatafix = puzzledata.replace("fromhunt", "§fromhunt§").replace("flavortext", "§flavortext§").replace("body", "§body§").replace("imagelinks", "§imagelinks§").replace("hint", "§hint§").replace("solution", "§solution§").replace("puzzlelink", "§puzzlelink§").replace("solutionlink", "§solutionlink§").replace("tags", "§tags§").replace("difficulty", "§difficulty§");
-      puzzledatafix += "  §";
-      puzzledatafix = puzzledatafix.replace(/\r?\n/g, "<br2>");
-      let prevfound = 1;
-
-      for (let i = 0; i < (puzzledatafix.match(/§/g) || []).length - 1; i += 2) {
-        var index = puzzledatafix.indexOf("§", prevfound);
-        prevfound = index + 1;
-        var temp = puzzledatafix.slice(0, index + 2) + "\"" + puzzledatafix.slice(index+3, puzzledatafix.indexOf("§", prevfound)-2) + "\"" + puzzledatafix.slice(puzzledatafix.indexOf("§", prevfound)-2);
-        puzzledatafix = temp;
-        prevfound = puzzledatafix.indexOf("§", prevfound)+1;
+        let datafix = JSON.parse("{" + puzzledatafix + "}");
+        let testPuzzle = new Puzzle(
+          title,
+          datafix["fromhunt"],
+          datafix["flavortext"],
+          datafix["body"],
+          datafix["imagelinks"],
+          datafix["hint"],
+          datafix["solution"],
+          datafix["puzzlelink"],
+          datafix["solutionlink"],
+          datafix["tags"],
+          datafix["difficulty"]
+        );
+        console.log(testPuzzle);
+        puzzles.push(testPuzzle);
       }
-      puzzledatafix = puzzledatafix.replaceAll("§","\"")
-      puzzledatafix = puzzledatafix.slice(0,puzzledatafix.length-3);
-
-      let datafix = JSON.parse("{" + puzzledatafix + "}");
-      let testPuzzle = new Puzzle(
-        title,
-        datafix["fromhunt"],
-        datafix["flavortext"],
-        datafix["body"],
-        datafix["imagelinks"],
-        datafix["hint"],
-        datafix["solution"],
-        datafix["puzzlelink"],
-        datafix["solutionlink"],
-        datafix["tags"],
-        datafix["difficulty"]
-      );
-      console.log(testPuzzle);
-      puzzles.push(testPuzzle);
+      cycleClick();
     }
-    cycleClick();
-  }).fail(function () { });
+  ).fail(function () {});
   //localstorage
   if (typeof Storage !== "undefined" && "answers" in localStorage) {
     answers = JSON.parse(window.localStorage.getItem("answers"));
