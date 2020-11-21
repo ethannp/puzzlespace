@@ -14,28 +14,17 @@ let Puzzle = class {
     difficulty,
     tags
   ) {
-    if (name === undefined) this.name = "";
-    else this.name = name;
-    if (hunt === undefined) this.hunt = "";
-    else this.hunt = hunt;
-    if (flavortext === undefined) this.flavortext = "";
-    else this.flavortext = flavortext;
-    if (body === undefined) this.body = "";
-    else this.body = body;
-    if (imagelink === undefined) this.imagelink = "";
-    else this.imagelink = imagelink;
-    if (hint === undefined) this.hint = "";
-    else this.hint = hint;
-    if (solution === undefined) this.solution = "";
-    else this.solution = solution.split(",");
-    if (puzzlelink === undefined) this.puzzlelink = "";
-    else this.puzzlelink = puzzlelink;
-    if (solutionlink === undefined) this.solutionlink = "";
-    else this.solutionlink = solutionlink;
-    if (difficulty === undefined) this.difficulty = "";
-    else this.difficulty = difficulty;
-    if (tags === undefined) this.tags = "";
-    else this.tags = tags.split(","); // split into individual words
+    this.name = name;
+    this.hunt = hunt;
+    this.flavortext = flavortext;
+    this.body = body.replaceAll("\n","<br2>");
+    this.imagelink = imagelink;
+    this.hint = hint;
+    this.solution = solution.split(",");
+    this.puzzlelink = puzzlelink;
+    this.solutionlink = solutionlink;
+    this.difficulty = difficulty;
+    this.tags = tags.split(",");
   }
 };
 /* date
@@ -85,6 +74,7 @@ function checkAns() {
   let ref = puzzles[number];
   var elementinput = document.getElementById("submitinput");
   var elementtext = document.getElementById("submission");
+  let change = elementinput.value.match(/^[a-z0-9]+$/i);
   var cleaned = elementinput.value
     .replaceAll(" ", "")
     .replace(/[^A-Za-z0-9]/g, "")
@@ -98,7 +88,7 @@ function checkAns() {
     } else {
       let ans = { puzzlenum: number, str: cleaned, correct: false };
       answers.push(ans);
-      elementtext.innerHTML = "'" + cleaned + "' was incorrect.";
+      elementtext.innerHTML = "'" + cleaned + "' was incorrect."+((change===null)? "<br2> Your answer was cleaned of any non-alphanumeric characters":"");
       elementtext.style.color = "#fa4659";
     }
     window.localStorage.setItem("answers", JSON.stringify(answers));
