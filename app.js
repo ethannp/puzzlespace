@@ -120,7 +120,7 @@ function showResponse() {
       list.innerHTML += node;
       var green = document.getElementById("green" + i);
       if (green != null) {
-        green.style.color = "#31bd87";
+        green.style.color = "#3ca37b";
       }
     }
   }
