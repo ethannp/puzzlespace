@@ -17,7 +17,7 @@ let Puzzle = class {
     this.name = name;
     this.hunt = hunt;
     this.flavortext = flavortext;
-    this.body = body.replaceAll("\n","<br2>");
+    this.body = body.replaceAll("\n", "<br2>");
     this.imagelink = imagelink;
     this.hint = hint;
     this.solution = solution.split(",");
@@ -34,11 +34,18 @@ let selectElement = document.getElementById('date');
 selectElement.innerHTML = formatDate;
 */
 
+var submitinput = document.getElementById("submitinput");
+var submit = document.getElementById("submit");
+submitinput.addEventListener("keyup", function (event) {
+  if (event.keyCode == 13) {
+    event.preventDefault();
+    submit.click();
+  }
+});
+
 var puzzles = [];
 var answers = [];
 var number;
-
-//deleted
 
 function cycleClick() {
   if (number < puzzles.length - 1) {
@@ -88,7 +95,13 @@ function checkAns() {
     } else {
       let ans = { puzzlenum: number, str: cleaned, correct: false };
       answers.push(ans);
-      elementtext.innerHTML = "'" + cleaned + "' was incorrect."+((change===null)? "<br2> Your answer was cleaned of any non-alphanumeric characters":"");
+      elementtext.innerHTML =
+        "'" +
+        cleaned +
+        "' was incorrect." +
+        (change === null
+          ? "<br2> Your answer was cleaned of any non-alphanumeric characters"
+          : "");
       elementtext.style.color = "#fa4659";
     }
     window.localStorage.setItem("answers", JSON.stringify(answers));
