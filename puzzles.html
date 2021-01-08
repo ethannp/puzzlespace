@@ -12,7 +12,7 @@
 <body>
   <header>
   <nav class="fixed-nav-bar">
-    <div id="menu" class="myDiv">
+    <div id="menu">
       <ul class="menu-items">
         <a class="puzzlespace-text" href="index.html"><img class="logo-image" src="white-puzzle-piece.svg"></a>
         <li><a class="puzzlespace-text" href="index.html">PuzzleSpace</a></li>
@@ -32,16 +32,16 @@
     <br></br>
     <div id='puzzleCycle' class="myDiv"></div>
     <br></br>
-    <div id='bottom'>
+    <div id='bottom' class="myDiv">
       <label for="submit">Check your answer:</label>
       <input id="submitinput"></input><button id = "submit" onclick="checkAns()">Submit</button>
       <br2></br2>
-      <div id='submission' class="myDiv"></div>
+      <div id='submission'></div>
       <br2></br2>
       <p>Previous guesses for this puzzle:</p>
       <div class="grid">
-      <ul id="col1"></ul>
-      <ul id="col2"></ul>
+      <ul id="col1" class="submit-list"></ul>
+      <ul id="col2" class="submit-list"></ul>
     </div>
     </div>
     <script src="app.js"></script>
