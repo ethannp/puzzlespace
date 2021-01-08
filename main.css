@@ -66,39 +66,6 @@ body {
   width: 120px;
 }
 
-.menu {
-  width: 90%;
-  /* max-width: 960px; */
-  font-weight: 700;
-  font-size: large;
-  text-transform: uppercase;
-  float: left;
-}
-
-.menu a,
-.menu a:visited {
-  color: #ffffff;
-}
-
-.menu a:hover,
-.menu a:target {
-  color: #ebebeb;
-  background: rgb(72, 72, 72);
-}
-
-.menu-items {
-  display: inline-block;
-}
-
-.menu-items li {
-  display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
-}
-.menu-items a {
-  text-decoration: none;
-}
-
 nav ul {
   display: flex;
   margin: 0;
@@ -128,6 +95,7 @@ nav ul li a:hover {
   border-radius: 10px;
   background: white;
 }
+
 #puzzleCycle {
   padding: 2rem;
   border-radius: 10px;
@@ -227,23 +195,6 @@ main {
 /* Small screens */
 
 @media only screen and (max-width: 600px) {
-  .navbar {
-    bottom: 0;
-    width: 100vw;
-    height: 5rem;
-  }
-  .logo {
-    display: none;
-  }
-  .navbar-nav {
-    flex-direction: row;
-  }
-  .nav-link {
-    justify-content: center;
-  }
-  main {
-    margin: 0;
-  }
 }
 
 /* Large screens */
