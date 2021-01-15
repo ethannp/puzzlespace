@@ -29,6 +29,8 @@ body {
   margin: auto;
 }
 
+/* Navigation Bar  */
+
 .fixed-nav-bar {
   background-color: black;
   position: fixed;
@@ -90,13 +92,40 @@ nav ul li a:hover {
   background: rgb(72, 72, 72);
 }
 
-#bottom {
+/* end of Navigation Bar */
+
+#puzzleCycle {
   padding: 2rem;
   border-radius: 10px;
   background: white;
 }
 
-#puzzleCycle {
+/* Puzzle Table  */
+#puzzleTable {
+  padding: 2rem;
+  border-radius: 10px;
+  background: white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* end of Puzzle Table  */
+
+#bottom {
   padding: 2rem;
   border-radius: 10px;
   background: white;
