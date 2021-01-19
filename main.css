@@ -112,11 +112,8 @@ table {
   width: 100%;
 }
 
-th,
-td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.check {
+  width: 1px;
 }
 
 th,
@@ -124,13 +121,22 @@ td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+}
+
+.from-hunt {
+  width: 100px;
 }
 
 .tags {
+  width: 20px;
+  /* TODO: right align tags */
+}
+
+.tag-content {
   background-color: black;
 }
 
-.tags:hover {
+.tag-content:hover {
   background-color: transparent;
 }
 
