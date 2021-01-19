@@ -6,25 +6,20 @@
   <meta charset="utf-8">
   <title>PuzzleSpace | Puzzles</title>
   <link rel="stylesheet" href="main.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
 </head>
 
 <body>
   <header>
     <nav class="fixed-nav-bar">
       <div id="menu">
-        <ul class="menu-items">
-          <a class="puzzlespace-text" href="index.html">
-            <img class="logo-image" src="white-puzzle-piece.svg">
-          </a>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="puzzles.html">Puzzles</a></li>
-          <li><a href="resources.html">Resources</a></li>
-          <li><a href="search.html">Search</a></li>
-      </ul>
+        <ul id="menu-ul" class="menu-items">
+        </ul>
       </div>
     </nav>
-</header>
+  </header>
   <main>
     <br></br>
     <h1>Puzzles</h1>
@@ -44,28 +39,60 @@
           <th>Tags</th>
         </tr>
         <tr>
-          <td class="check"><div>check</div></td>
-          <td class="puzzleTitle"><div><a href="#">Shopping List</a></div></td>
-          <td class="from-hunt"><div>Hunt20</div></td>
-          <td class="tags"><div class="tag-content">Word</div></td>
+          <td class="check">
+            <div>check</div>
+          </td>
+          <td class="puzzleTitle">
+            <div><a href="#">Shopping List</a></div>
+          </td>
+          <td class="from-hunt">
+            <div>Hunt20</div>
+          </td>
+          <td class="tags">
+            <div class="tag-content">Word</div>
+          </td>
         </tr>
         <tr>
-          <td class="check"><div></div></td>
-          <td class="puzzleTitle"><div><a href="#">Busy as a Bee</a></div></td>
-          <td><div>Hunt20</div></td>
-          <td class="tags"><div class="tag-content"></div></td>
+          <td class="check">
+            <div></div>
+          </td>
+          <td class="puzzleTitle">
+            <div><a href="#">Busy as a Bee</a></div>
+          </td>
+          <td>
+            <div>Hunt20</div>
+          </td>
+          <td class="tags">
+            <div class="tag-content"></div>
+          </td>
         </tr>
         <tr>
-          <td class="check"><div></div></td>
-          <td class="puzzleTitle"><div><a href="#">Voyage</a></div></td>
-          <td><div>Hunt20</div></td>
-          <td class="tags"><div class="tag-content"></div></td>
+          <td class="check">
+            <div></div>
+          </td>
+          <td class="puzzleTitle">
+            <div><a href="#">Voyage</a></div>
+          </td>
+          <td>
+            <div>Hunt20</div>
+          </td>
+          <td class="tags">
+            <div class="tag-content"></div>
+          </td>
         </tr>
         <tr>
-          <td class="check"><div></div></td>
-          <td class="puzzleTitle"><div><a href="#">ASsess It CarefuIIy</a></div></td>
-          <td><div>Hunt20</div></td>
-          <td class="tags"><div class="tag-content">Cryptography</div></td>
+          <td class="check">
+            <div></div>
+          </td>
+          <td class="puzzleTitle">
+            <div><a href="#">ASsess It CarefuIIy</a></div>
+          </td>
+          <td>
+            <div>Hunt20</div>
+          </td>
+          <td class="tags">
+            <div class="tag-content">Cryptography</div>
+          </td>
         </tr>
       </table>
     </div>
@@ -73,17 +100,18 @@
     <br></br>
     <div id='bottom' class="myDiv">
       <label for="submit">Check your answer:</label>
-      <input id="submitinput"></input><button id = "submit" onclick="checkAns()">Submit</button>
+      <input id="submitinput"></input><button id="submit" onclick="checkAns()">Submit</button>
       <br2></br2>
       <div id='submission'></div>
       <br2></br2>
       <p>Previous guesses for this puzzle:</p>
       <div class="grid">
-      <ul id="col1" class="submit-list"></ul>
-      <ul id="col2" class="submit-list"></ul>
-    </div>
+        <ul id="col1" class="submit-list"></ul>
+        <ul id="col2" class="submit-list"></ul>
+      </div>
     </div>
     <script src="app.js"></script>
     <script src="puzzles.js"></script>
+    <script src="header.js"></script>
   </main>
 </body>
