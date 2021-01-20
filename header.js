@@ -7,10 +7,10 @@ function loadNavbar() {
   logo.className = "puzzlespace-text";
   logo.href = "index.html";
   const img = document.createElement("img");
-  img.class = "logo-image";
+  img.setAttribute("id", "logo-image");
   img.src = "white-puzzle-piece.svg";
-  logo.appendChild(img); // im pretty sure this is the way to do it. if it doesnt work lmk
-  navul.appendChild(logo); // adds logo element to navul
+  logo.appendChild(img);
+  navul.appendChild(logo);
 
   //Home tab
   const li1 = document.createElement("li");
