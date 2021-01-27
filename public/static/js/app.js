@@ -138,8 +138,3 @@ function showResponse() {
     }
   }
 }
-
-function clearStorage() {
-  window.localStorage.removeItem("answers");
-  answers = [];
-}
