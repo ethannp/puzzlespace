@@ -48,7 +48,7 @@ header {
 nav ul {
   display: flex;
   margin: 0;
-  margin-left:-60px;
+  margin-left: -60px;
 }
 
 nav li {
@@ -67,14 +67,13 @@ nav a {
 
 nav a:hover {
   background: rgb(72, 72, 72);
-  height:50px;
+  height: 50px;
 }
 
 #topcont {
   max-width: 900px;
   margin: auto;
-  width:90%
-
+  width: 90%;
 }
 
 /* end of Navigation Bar */
@@ -169,11 +168,10 @@ h4 {
   grid-gap: 0px;
 }
 
-
 main {
   margin: auto;
   max-width: 900px;
-  width:90%
+  width: 90%;
 }
 
 .fa-primary {
@@ -203,11 +201,13 @@ main {
 
 /* Small screens */
 
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+}
 
 /* Large screens */
 
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+}
 
 .link {
   transition: color 0.3s;
