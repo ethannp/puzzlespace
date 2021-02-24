@@ -26,7 +26,7 @@
   <main>
     <br></br>
     <h1>Puzzles</h1>
-    <div id='puzzleCycle' class="myDiv" style="margin-top:0px; padding-top:5px;" hidden><br></div>
+    <div id='puzzleCycle' class="box" hidden><br></div>
 
     <!-- Puzzle Table -->
     <style>
@@ -35,7 +35,7 @@
         margin: auto;
       }
     </style>
-    <div id='puzzleTable'>
+    <div id='puzzleTable' class="box">
       <table id="tab">
         <tr>
           <th>Completed</th>
@@ -46,7 +46,7 @@
       </table>
     </div>
 
-    <div id='bottom' class="myDiv" style="margin-top:20px" hidden>
+    <div id='bottom' class="box" style="margin-top:20px" hidden>
       <label for="submit">Check your answer:</label>
       <input id="submitinput"></input><button id="submit" onclick="checkAns()">Submit</button>
       <div id='submission'></div>

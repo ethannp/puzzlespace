@@ -38,21 +38,6 @@ let Puzzle = class {
     this.tags = tags.split(",");
   }
 };
-/* date
-let today = new Date();
-let formatDate = today.toDateString();
-let selectElement = document.getElementById('date');
-selectElement.innerHTML = formatDate;
-*/
-
-var submitinput = document.getElementById("submitinput");
-var submit = document.getElementById("submit");
-submitinput.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
-    event.preventDefault();
-    submit.click();
-  }
-});
 
 var puzzles = [];
 var curPuzzle;
@@ -68,6 +53,15 @@ $(document).ready(async function () {
     answers = [];
   }
   if (urlParams.has('p')) { //load puzzle
+    var submitinput = document.getElementById("submitinput");
+    var submit = document.getElementById("submit");
+    submitinput.addEventListener("keyup", function (event) {
+      if (event.keyCode == 13) {
+        event.preventDefault();
+        submit.click();
+      }
+    });
+
     document.getElementById("puzzleCycle").style.display = "block";
     document.getElementById("bottom").style.display = "block";
     document.getElementById("puzzleTable").style.display = "none";
@@ -84,38 +78,42 @@ $(document).ready(async function () {
   }
 });
 
-async function loadTable(){
+async function loadTable() {
   const db = firebase.database().ref("puzzles/");
   let snap = await db.once("value");
   let val = snap.val();
-  const table = document.getElementById("tab");
-  for(const key in val){
-    let tr = document.createElement("tr");
-    //TODO: implement function that checks if answer has been submitted correctly in past
-    let check = document.createElement("td");
-    check.classList.add("check")
-    let title = document.createElement("td");
-    title.classList.add("puzzleTitle")
-    let a_title = document.createElement("a");
-    a_title.innerHTML = val[key].name;
-    a_title.classList.add("link");
-    a_title.href = "puzzles.html?p="+key;
-    let fromhunt = document.createElement("td");
-    fromhunt.classList.add("from-hunt")
-    fromhunt.innerHTML = val[key].fromhunt;
-    let tags = document.createElement("td")
-    tags.classList.add("tags")
-    let div_tag = document.createElement("div");
-    div_tag.classList.add("tag-content");
-    div_tag.innerHTML = val[key].tags;
+  try {
+    const table = document.getElementById("tab");
+    for (const key in val) {
+      let tr = document.createElement("tr");
+      //TODO: implement function that checks if answer has been submitted correctly in past
+      let check = document.createElement("td");
+      check.classList.add("check")
+      let title = document.createElement("td");
+      title.classList.add("puzzleTitle")
+      let a_title = document.createElement("a");
+      a_title.innerHTML = val[key].name;
+      a_title.classList.add("link");
+      a_title.href = "puzzles.html?p=" + key;
+      let fromhunt = document.createElement("td");
+      fromhunt.classList.add("from-hunt")
+      fromhunt.innerHTML = val[key].fromhunt;
+      let tags = document.createElement("td")
+      tags.classList.add("tags")
+      let div_tag = document.createElement("div");
+      div_tag.classList.add("tag-content");
+      div_tag.innerHTML = val[key].tags;
 
-    title.appendChild(a_title);
-    tags.appendChild(div_tag);
-    tr.appendChild(check);
-    tr.appendChild(title);
-    tr.appendChild(fromhunt);
-    tr.appendChild(tags);
-    table.appendChild(tr);
+      title.appendChild(a_title);
+      tags.appendChild(div_tag);
+      tr.appendChild(check);
+      tr.appendChild(title);
+      tr.appendChild(fromhunt);
+      tr.appendChild(tags);
+      table.appendChild(tr);
+    }
+  } catch (e) {
+    //not on /puzzles
   }
 }
 

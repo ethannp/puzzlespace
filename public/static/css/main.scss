@@ -5,7 +5,6 @@
   --bg-primary: #23232e;
   --bg-secondary: #141418;
   font-family: "Nunito";
-  padding-bottom: 5rem;
 }
 
 @font-face {
@@ -23,9 +22,15 @@ body {
   margin-top: 0px;
 }
 
-.myDiv {
+.box {
   max-width: 900px;
-  margin: auto;
+  margin: 0;
+  border-radius: 7px;
+  background: white;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:20px;
+  padding-right:10px;
 }
 
 /* Navigation Bar  */
@@ -78,18 +83,6 @@ nav a:hover {
 
 /* end of Navigation Bar */
 
-#puzzleCycle {
-  padding: 1rem;
-  border-radius: 10px;
-  background: white;
-}
-
-/* Puzzle Table  */
-#puzzleTable {
-  padding: 1rem;
-  border-radius: 10px;
-  background: white;
-}
 
 table {
   border-collapse: collapse;
@@ -130,11 +123,6 @@ tr:hover {
 
 /* end of Puzzle Table  */
 
-#bottom {
-  padding: 2rem;
-  border-radius: 10px;
-  background: white;
-}
 
 h1 {
   color: black;

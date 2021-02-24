@@ -16,6 +16,7 @@
     $(function () {
       $("header").load("navbar.html", null, function () {
         $.getScript('/static/js/app.js');
+        $.getScript('/static/js/load.js')
       });
     });
   </script>
@@ -26,8 +27,20 @@
   <main>
     <br></br>
     <h1>Add Puzzle</h1>
-    <div class="myDiv" style="margin-top:0px; padding-top:5px;">
+    <div class="box">
+      <input id="title-input" value="Title of the puzzle">
+      <br>
+      <input id="flavor-input" value="Flavortext">
+      <br>
+      <textarea id="body-input" name="body" cols="50" rows="20"></textarea>
+      <br>
+      <button id="update">Refresh</button>
+      <br>
+    </div>
+<br>
+    <div id="sample" class="box" style="margin-top:0px; margin-bottom:20px;">
 
     </div>
+
   </main>
 </body>
