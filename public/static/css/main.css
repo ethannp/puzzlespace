@@ -83,6 +83,45 @@ nav a:hover {
 }
 
 /* end of Navigation Bar */
+.input-box {
+  border-radius: 7px;
+  border: 1px solid #000000;
+  padding: 11px;
+  width: 300px;
+  line-height: 15px;
+  font-family: "Nunito";
+  margin-bottom: 8px;
+}
+
+#body-input {
+  border-radius: 7px;
+  border: 1px solid #000000;
+}
+
+.button {
+  border-radius: 7px;
+  font-size: 15px;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  background-color: #006dda;
+  border: 0.1em solid #000000;
+  margin: 0 0.3em 0.3em 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Nunito";
+  font-weight: 300;
+  color: #ffffff;
+  text-align: center;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  color: #000000;
+  background-color: #84bbf2;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -121,6 +160,11 @@ tr:hover {
 }
 
 /* end of Puzzle Table  */
+.submitinput {
+  height: 20px;
+  padding: 8px;
+}
+
 h1 {
   color: black;
   font-size: 3em;
