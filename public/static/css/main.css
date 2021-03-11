@@ -122,6 +122,13 @@ nav a:hover {
   background-color: #84bbf2;
 }
 
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -168,6 +175,10 @@ tr:hover {
 h1 {
   color: black;
   font-size: 3em;
+}
+
+#home-header {
+  color: white;
 }
 
 h2 {
