@@ -69,7 +69,7 @@ function setupStars() {
 
 // redraw the frame
 function updateStars() {
-  starsCtx.fillStyle = "rgb(0,0,0)"; //space background color
+  starsCtx.fillStyle = "rgb(24,24,24)"; //space background color
   starsCtx.fillRect(0, 0, stars.width, stars.height);
   starsElements.forEach(function (s) {
     s.show();
