@@ -24,7 +24,8 @@ let Puzzle = class {
     puzzlelink,
     solutionlink,
     difficulty,
-    tags
+    tags,
+    slug
   ) {
     this.name = name;
     this.hunt = hunt;
@@ -36,6 +37,7 @@ let Puzzle = class {
     this.solutionlink = solutionlink;
     this.difficulty = difficulty;
     this.tags = tags.split(",");
+    this.slug = slug;
   }
 };
 
@@ -131,7 +133,8 @@ async function getData(param) {
     val.puzzlink,
     val.solutionlink,
     val.diff,
-    val.tags);
+    val.tags,
+    val.slug);
   return puzz;
 }
 
@@ -176,14 +179,14 @@ function checkAns() {
       elementtext.innerHTML = "Correct!";
       elementtext.style.color = "#31bd87";
       let ans = {
-        puzzlenum: number,
+        name: ref.slug,
         str: cleaned,
         correct: true
       };
       answers.push(ans);
     } else {
       let ans = {
-        puzzlenum: number,
+        name: ref.slug,
         str: cleaned,
         correct: false
       };
@@ -208,7 +211,7 @@ function showResponse() {
   document.getElementById("col2").innerHTML = "";
   let count = 0;
   for (let i = answers.length - 1; i >= 0; i--) {
-    if (answers[i].puzzlenum == number && count < 20) {
+    if (answers[i].slug == curPuzzle.slug && count < 20) {
       count++;
       var node = "";
       if (answers[i].correct) {
@@ -226,7 +229,7 @@ function showResponse() {
       list.innerHTML += node;
       var green = document.getElementById("green" + i);
       if (green != null) {
-        green.style.color = "#3ca37b";
+        green.style.color = "#39e678";
       }
     }
   }

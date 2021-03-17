@@ -28,11 +28,12 @@
     <br></br>
     <h1>Add Puzzle</h1>
     <div class="box">
-      <input class="input-box" id="title-input" type="text" placeholder="Puzzle Title">
-      <input class="input-box" id="flavor-input" type="text" placeholder="Flavortext">
-      <textarea id="body-input" name="body" cols="50" rows="20"></textarea>
+      <input class="input-box" oninput="refresh()" id="title-input" type="text" placeholder="Puzzle Title">
+      <input class="input-box" oninput="refresh()" id="flavor-input" type="text" placeholder="Flavortext">
+      <textarea id="body-input" oninput="refresh()" name="body" cols="100" rows="20"></textarea>
       <br>
-      <button class="button" id="update">Refresh</button>
+      <input class="input-box" id="solution" type="text" placeholder="Answer">
+      <br>
     </div>
     <br>
     <div id="sample" class="box" style="margin-top:0px; margin-bottom:20px;">
