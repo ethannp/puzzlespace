@@ -15,15 +15,10 @@ td{text-align:center;} //styles
 
 <a href="/" target="_blank" >And clickable links</a>
 
-
-
+<hr>
 Use double line breaks 
 
 or the &lt;br&gt; tag for a line break (use &lt; and &gt; for < and >).
-
-
-
-Have fun!
 `;
     refresh();
 })
