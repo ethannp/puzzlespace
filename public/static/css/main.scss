@@ -85,7 +85,7 @@ nav a:hover {
 
 .input-box {
   border-radius: 7px;
-  border: 1px solid #000000;
+  border: 0.5px solid #000000;
   padding: 11px;
   width: 300px;
   height: 12px;
@@ -95,6 +95,7 @@ nav a:hover {
 
 .input-box:focus {
   outline: 0;
+  box-shadow: 0 0 5px #84bbf2;
 }
 
 #body-input {
@@ -111,7 +112,6 @@ nav a:hover {
   display: inline;
   padding: 7px 11px; //padding around text in button
   background-color: #006dda;
-  text-decoration: none;
   font-family: "Nunito"; //font family is already defined
   color: #ffffff;
   text-align: center;
@@ -125,7 +125,7 @@ nav a:hover {
 }
 
 button:focus {
-  outline: 0;
+  outline: none;
 }
 
 canvas {
