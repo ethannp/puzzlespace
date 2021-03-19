@@ -38,23 +38,27 @@
     <div style="margin-top:40px" id='puzzleTable' class="box">
       <h1>Puzzles</h1>
       <div>
-      <input type="checkbox" id="tag-spoiler" onchange="spoilerT()" name="tag-spoiler" checked>
-      <label for="tag-spoiler">Spoiler-tag tags</label>
-    </div>
-      <input type="text" id="search-input" oninput="search()" placeholder="Search">
+        <label id="tag-spoiler-label" for="tag-spoiler">Spoiler-tag tags<input type="checkbox" id="tag-spoiler"
+            onchange="spoilerT()" name="tag-spoiler" checked></label>
+      </div>
+      <input class="input-box" type="text" id="search-input" autocomplete="off" oninput="search()" placeholder="Search">
       <table id="tab">
         <tr>
-          <th id="tab-comp" class="check">Completed <span id="span-comp" style="padding:1px"><i class="fa">&#xf0b0;</i></span></th>
-          <th id="tab-title" class="puzzleTitle">Puzzle Title <span id="span-title" style="padding:1px" hidden><i class="fa">&#xf0b0;</i></span></th>
-          <th id="tab-from" class="from-hunt">From Hunt <span id="span-from" style="padding:1px"><i class="fa">&#xf0b0;</i></span></th>
-          <th id="tab-tags" class="tags">Tags <span id="span-tags" style="padding:1px"><i class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-comp" class="check">Completed <span id="span-comp" style="padding:1px"><i
+                class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-title" class="puzzleTitle">Puzzle Title <span id="span-title" style="padding:1px" hidden><i
+                class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-from" class="from-hunt">From Hunt <span id="span-from" style="padding:1px"><i
+                class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-tags" class="tags">Tags <span id="span-tags" style="padding:1px"><i class="fa">&#xf0b0;</i></span>
+          </th>
         </tr>
       </table>
     </div>
 
     <div id='bottom' class="box" style="margin-top:20px" hidden>
       <label for="submit">Check your answer:</label>
-      <input class="input-box" id="submitinput"></input><button id="submit" class="button"
+      <input class="input-box" id="submit-input"></input><button id="submit" class="button"
         onclick="checkAns()">Submit</button>
       <div id='submission'></div>
       <p>Previous guesses for this puzzle:</p>

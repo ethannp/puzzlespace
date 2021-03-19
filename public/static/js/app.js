@@ -8,7 +8,7 @@ var firebaseConfig = {
   storageBucket: "puzzle-space.appspot.com",
   messagingSenderId: "616135786734",
   appId: "1:616135786734:web:a965a335a02ced9840b3ff",
-  measurementId: "G-6Y4FXKW5E8"
+  measurementId: "G-6Y4FXKW5E8",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -45,7 +45,7 @@ var puzzles = [];
 var curPuzzle;
 var answers = [];
 var number;
-var spoiler=true;
+var spoiler = true;
 
 $(document).ready(async function () {
   let search = window.location.search;
@@ -55,8 +55,9 @@ $(document).ready(async function () {
   } else {
     answers = [];
   }
-  if (urlParams.has('p')) { //load puzzle
-    var submitinput = document.getElementById("submitinput");
+  if (urlParams.has("p")) {
+    //load puzzle
+    var submitinput = document.getElementById("submit-input");
     var submit = document.getElementById("submit");
     submitinput.addEventListener("keyup", function (event) {
       if (event.keyCode == 13) {
@@ -72,14 +73,15 @@ $(document).ready(async function () {
     const db = firebase.database();
     let ref = db.ref("puzzles/" + urlParams.get("p") + "/");
     if (ref) {
-      let puzzle = await getData(urlParams.get("p"))
-      curPuzzle = puzzle
+      let puzzle = await getData(urlParams.get("p"));
+      curPuzzle = puzzle;
       await loadPuzz();
     }
-  } else { // load list
+  } else {
+    // load list
     await loadTable();
     document.getElementById("tab-title").click();
-    document.getElementById("span-title").removeAttribute("hidden"); 
+    document.getElementById("span-title").removeAttribute("hidden");
   }
 });
 
@@ -93,21 +95,21 @@ async function loadTable() {
       let tr = document.createElement("tr");
       //TODO: implement function that checks if answer has been submitted correctly in past
       let check = document.createElement("td");
-      check.classList.add("check")
+      check.classList.add("check");
       let title = document.createElement("td");
-      title.classList.add("puzzleTitle")
+      title.classList.add("puzzleTitle");
       let a_title = document.createElement("a");
       a_title.innerHTML = val[key].name;
       a_title.classList.add("link");
       a_title.href = "puzzles.html?p=" + key;
       let fromhunt = document.createElement("td");
-      fromhunt.classList.add("from-hunt")
+      fromhunt.classList.add("from-hunt");
       fromhunt.innerHTML = val[key].fromhunt;
-      let tags = document.createElement("td")
-      tags.classList.add("tags")
+      let tags = document.createElement("td");
+      tags.classList.add("tags");
       let div_tag = document.createElement("div");
       div_tag.classList.add("tag-content");
-      div_tag.classList.add("permTag")
+      div_tag.classList.add("permTag");
       div_tag.innerHTML = val[key].tags;
 
       title.appendChild(a_title);
@@ -123,16 +125,15 @@ async function loadTable() {
   }
 }
 
-function spoilerT(){
-  if(spoiler){
+function spoilerT() {
+  if (spoiler) {
     spoiler = false;
-    document.querySelectorAll(".permTag").forEach(function(e){
+    document.querySelectorAll(".permTag").forEach(function (e) {
       e.classList.remove("tag-content");
     });
-  }
-  else{
+  } else {
     spoiler = true;
-    document.querySelectorAll(".permTag").forEach(function(e){
+    document.querySelectorAll(".permTag").forEach(function (e) {
       e.classList.add("tag-content");
     });
   }
@@ -155,16 +156,30 @@ function search() {
   }
 }
 
-const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const getCellValue = (tr, idx) =>
+  tr.children[idx].innerText || tr.children[idx].textContent;
 
-const comparer = (idx, asc) => (a, b) => ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+const comparer = (idx, asc) => (a, b) =>
+  ((v1, v2) =>
+    v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
+      ? v1 - v2
+      : v1.toString().localeCompare(v2))(
+    getCellValue(asc ? a : b, idx),
+    getCellValue(asc ? b : a, idx)
+  );
 
-document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-  const table = th.closest('table');
-  Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-    .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-    .forEach(tr => table.appendChild(tr));
-  /*let id = th.id.slice(th.id.indexOf("-")+1);
+document.querySelectorAll("th").forEach((th) =>
+  th.addEventListener("click", () => {
+    const table = th.closest("table");
+    Array.from(table.querySelectorAll("tr:nth-child(n+2)"))
+      .sort(
+        comparer(
+          Array.from(th.parentNode.children).indexOf(th),
+          (this.asc = !this.asc)
+        )
+      )
+      .forEach((tr) => table.appendChild(tr));
+    /*let id = th.id.slice(th.id.indexOf("-")+1);
   let list = document.getElementById(id).classList;
   if(list.contains("down")){
     list.remove("down");
@@ -174,7 +189,8 @@ document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() =
     list.remove("up");
     list.add("down");
   }*/
-})));
+  })
+);
 
 async function getData(param) {
   const db = firebase.database().ref("puzzles/" + param + "/");
@@ -191,11 +207,10 @@ async function getData(param) {
     val.solutionlink,
     val.diff,
     val.tags,
-    val.slug);
+    val.slug
+  );
   return puzz;
 }
-
-
 
 async function loadPuzz() {
   var puz = document.createElement("div");
@@ -238,23 +253,23 @@ function checkAns() {
       let ans = {
         name: ref.slug,
         str: cleaned,
-        correct: true
+        correct: true,
       };
       answers.push(ans);
     } else {
       let ans = {
         name: ref.slug,
         str: cleaned,
-        correct: false
+        correct: false,
       };
       answers.push(ans);
       elementtext.innerHTML =
         "'" +
         cleaned +
         "' was incorrect." +
-        (change === null ?
-          "<br2> Your answer was cleaned of any non-alphanumeric characters" :
-          "");
+        (change === null
+          ? "<br2> Your answer was cleaned of any non-alphanumeric characters"
+          : "");
       elementtext.style.color = "#fa4659";
     }
     window.localStorage.setItem("answers", JSON.stringify(answers));

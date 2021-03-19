@@ -88,6 +88,7 @@ nav a:hover {
   border: 1px solid #000000;
   padding: 11px;
   width: 300px;
+  height: 12px;
   line-height: 15px;
   font-family: "Nunito";
   margin-bottom: 8px;
@@ -138,6 +139,10 @@ canvas {
   width: 100%;
 }
 
+#tag-spoiler-label {
+  float: right;
+}
+
 .check {
   width: 110px;
 }
@@ -171,9 +176,11 @@ canvas {
 }
 
 /* end of Puzzle Table  */
-.submitinput {
+#submit-input {
   height: 20px;
-  padding: 8px;
+  padding-right: 8px;
+  margin-right: 8px;
+  height: 12px;
 }
 
 h1 {
