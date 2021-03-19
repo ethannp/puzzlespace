@@ -108,12 +108,8 @@ nav a:hover {
   display: inline;
   padding: 7px 11px;
   background-color: #006dda;
-  border: 0.1em solid #000000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   text-decoration: none;
   font-family: "Nunito";
-  font-weight: 300;
   color: #ffffff;
   text-align: center;
   -webkit-transition: all 0.2s;
