@@ -9,6 +9,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet" />
@@ -25,8 +26,7 @@
   <header></header>
   <main>
     <br></br>
-    <h1>Puzzles</h1>
-    <div id='puzzleCycle' class="box" hidden><br></div>
+    <div style="margin-top:40px" id='puzzleCycle' class="box" hidden><br></div>
 
     <!-- Puzzle Table -->
     <style>
@@ -35,13 +35,19 @@
         margin: auto;
       }
     </style>
-    <div id='puzzleTable' class="box">
+    <div style="margin-top:40px" id='puzzleTable' class="box">
+      <h1>Puzzles</h1>
+      <div>
+      <input type="checkbox" id="tag-spoiler" onchange="spoilerT()" name="tag-spoiler" checked>
+      <label for="tag-spoiler">Spoiler-tag tags</label>
+    </div>
+      <input type="text" id="search-input" oninput="search()" placeholder="Search">
       <table id="tab">
         <tr>
-          <th>Completed</th>
-          <th>Puzzle Title</th>
-          <th>From Hunt</th>
-          <th>Tags</th>
+          <th id="tab-comp" class="check">Completed <span id="span-comp" style="padding:1px"><i class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-title" class="puzzleTitle">Puzzle Title <span id="span-title" style="padding:1px" hidden><i class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-from" class="from-hunt">From Hunt <span id="span-from" style="padding:1px"><i class="fa">&#xf0b0;</i></span></th>
+          <th id="tab-tags" class="tags">Tags <span id="span-tags" style="padding:1px"><i class="fa">&#xf0b0;</i></span></th>
         </tr>
       </table>
     </div>

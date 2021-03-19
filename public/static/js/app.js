@@ -45,6 +45,7 @@ var puzzles = [];
 var curPuzzle;
 var answers = [];
 var number;
+var spoiler=true;
 
 $(document).ready(async function () {
   let search = window.location.search;
@@ -77,6 +78,8 @@ $(document).ready(async function () {
     }
   } else { // load list
     await loadTable();
+    document.getElementById("tab-title").click();
+    document.getElementById("span-title").removeAttribute("hidden"); 
   }
 });
 
@@ -104,6 +107,7 @@ async function loadTable() {
       tags.classList.add("tags")
       let div_tag = document.createElement("div");
       div_tag.classList.add("tag-content");
+      div_tag.classList.add("permTag")
       div_tag.innerHTML = val[key].tags;
 
       title.appendChild(a_title);
@@ -118,6 +122,59 @@ async function loadTable() {
     //not on /puzzles
   }
 }
+
+function spoilerT(){
+  if(spoiler){
+    spoiler = false;
+    document.querySelectorAll(".permTag").forEach(function(e){
+      e.classList.remove("tag-content");
+    });
+  }
+  else{
+    spoiler = true;
+    document.querySelectorAll(".permTag").forEach(function(e){
+      e.classList.add("tag-content");
+    });
+  }
+}
+
+function search() {
+  let input = document.getElementById("search-input").value.toLowerCase();
+  let table = document.getElementById("tab");
+  let tr = table.getElementsByTagName("tr");
+  for (let i = 0; i < tr.length; i++) {
+    let td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      let val = td.textContent || td.innerText;
+      if (val.toLowerCase().indexOf(input) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+  const table = th.closest('table');
+  Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+    .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+    .forEach(tr => table.appendChild(tr));
+  /*let id = th.id.slice(th.id.indexOf("-")+1);
+  let list = document.getElementById(id).classList;
+  if(list.contains("down")){
+    list.remove("down");
+    list.add("up");
+  }
+  else{
+    list.remove("up");
+    list.add("down");
+  }*/
+})));
 
 async function getData(param) {
   const db = firebase.database().ref("puzzles/" + param + "/");

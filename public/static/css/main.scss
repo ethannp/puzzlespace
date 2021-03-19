@@ -137,7 +137,7 @@ canvas {
 }
 
 .check {
-  width: 1px;
+  width: 110px;
 }
 
 #tab th,
@@ -148,11 +148,11 @@ canvas {
 }
 
 .from-hunt {
-  width: 100px;
+  width: 120px;
 }
 
 .tags {
-  width: 20px;
+  width: 120px;
   /* TODO: right align tags */
 }
 
@@ -287,4 +287,35 @@ main {
   bottom: -2px;
   width: 100%;
   height: 100%;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 4px;
+  margin-left:2px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  position:relative;
+  top:4px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-bottom:2px;
 }
