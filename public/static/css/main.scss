@@ -93,6 +93,10 @@ nav a:hover {
   margin-bottom: 8px;
 }
 
+.input-box:focus {
+  outline: 0;
+}
+
 #body-input {
   border-radius: 7px;
   border: 1px solid #000000;
@@ -118,6 +122,10 @@ nav a:hover {
   color: #000000;
   background-color: #84bbf2;
   cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
 }
 
 canvas {
