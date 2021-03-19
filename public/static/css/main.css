@@ -89,7 +89,6 @@ nav a:hover {
   padding: 11px;
   width: 300px;
   height: 12px;
-  line-height: 15px;
   font-family: "Nunito";
   margin-bottom: 8px;
 }
@@ -106,11 +105,10 @@ nav a:hover {
 .button {
   border-radius: 7px;
   font-size: 15px;
-  display: inline-block;
-  padding: 0.35em 1.2em;
+  display: inline;
+  padding: 7px 11px;
   background-color: #006dda;
   border: 0.1em solid #000000;
-  margin: 0 0.3em 0.3em 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-decoration: none;
@@ -125,6 +123,7 @@ nav a:hover {
 .button:hover {
   color: #000000;
   background-color: #84bbf2;
+  cursor: pointer;
 }
 
 canvas {
@@ -141,6 +140,7 @@ canvas {
 
 #tag-spoiler-label {
   float: right;
+  padding-top: 7px;
 }
 
 .check {
@@ -177,10 +177,9 @@ canvas {
 
 /* end of Puzzle Table  */
 #submit-input {
-  height: 20px;
+  display: inline;
   padding-right: 8px;
   margin-right: 8px;
-  height: 12px;
 }
 
 h1 {
