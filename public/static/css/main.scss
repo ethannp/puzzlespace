@@ -116,6 +116,8 @@ nav a:hover {
   color: #ffffff;
   text-align: center;
   transition: all 0.2s;
+  outline: 0;
+  border: 0;
 }
 
 .button:hover {
@@ -134,6 +136,8 @@ canvas {
   top: 0;
   z-index: -1;
 }
+
+/* start of Puzzle Table  */
 
 #tab {
   border-collapse: collapse;
@@ -177,7 +181,7 @@ canvas {
   background-color: #f5f5f5;
 }
 
-/* end of Puzzle Table  */
+/* Puzzle Table  */
 
 #submit-input {
   display: inline;
