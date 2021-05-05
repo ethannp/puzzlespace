@@ -10,8 +10,49 @@ var firebaseConfig = {
   appId: "1:616135786734:web:a965a335a02ced9840b3ff",
   measurementId: "G-6Y4FXKW5E8",
 };
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+
+function login() {
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+  const auth = firebase.auth();
+  auth.signInWithEmailAndPassword(email, pass)
+    .then((user) => {
+      signedin(user);
+    })
+    .catch((error) => {
+      document.getElementById('loginStatus').innerHTML = "There was an error logging into your account. " + error.message;
+    })
+}
+
+function register() {
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+  const auth = firebase.auth();
+  auth.createUserWithEmailAndPassword(email, pass)
+    .then((user) => {
+      signedin(user);
+    })
+    .catch((error) => {
+      document.getElementById('loginStatus').innerHTML = "There was an error when creating your account. " + error.message;
+    })
+}
+
+function signedin(user) {
+  document.getElementById("login").hidden = true;
+  document.getElementById("account").hidden = false;
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("info").innerHTML = `You are logged in as ${user.email}.`
+}
+
+function signout(){
+  firebase.auth().signOut();
+  document.getElementById('loginStatus').innerHTML = "";
+  document.getElementById("login").hidden = false;
+  document.getElementById("account").hidden = true;
+}
 
 let Puzzle = class {
   constructor(
@@ -48,40 +89,51 @@ var number;
 var spoiler = true;
 
 $(document).ready(async function () {
-  let search = window.location.search;
-  const urlParams = new URLSearchParams(search);
-  if (typeof Storage !== "undefined" && "answers" in localStorage) {
-    answers = JSON.parse(window.localStorage.getItem("answers"));
-  } else {
-    answers = [];
-  }
-  if (urlParams.has("p")) {
-    //load puzzle
-    var submitinput = document.getElementById("submit-input");
-    var submit = document.getElementById("submit");
-    submitinput.addEventListener("keyup", function (event) {
-      if (event.keyCode == 13) {
-        event.preventDefault();
-        submit.click();
+  if (/puzzles/.test(window.location.href)) {
+    let search = window.location.search;
+    const urlParams = new URLSearchParams(search);
+    if (typeof Storage !== "undefined" && "answers" in localStorage) {
+      answers = JSON.parse(window.localStorage.getItem("answers"));
+    } else {
+      answers = [];
+    }
+    if (urlParams.has("p")) {
+      //load puzzle
+      var submitinput = document.getElementById("submit-input");
+      var submit = document.getElementById("submit");
+      submitinput.addEventListener("keyup", function (event) {
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          submit.click();
+        }
+      });
+
+      document.getElementById("puzzleCycle").style.display = "block";
+      document.getElementById("bottom").style.display = "block";
+      document.getElementById("puzzleTable").style.display = "none";
+
+      const db = firebase.database();
+      let ref = db.ref("puzzles/" + urlParams.get("p") + "/");
+      if (ref) {
+        let puzzle = await getData(urlParams.get("p"));
+        curPuzzle = puzzle;
+        await loadPuzz();
+      }
+    } else {
+      // load list
+      await loadTable();
+      document.getElementById("tab-title").click();
+      document.getElementById("span-title").removeAttribute("hidden");
+    }
+  } else if (/account/.test(window.location.href)) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        signedin(user);
+      }
+      else{
+        signout();
       }
     });
-
-    document.getElementById("puzzleCycle").style.display = "block";
-    document.getElementById("bottom").style.display = "block";
-    document.getElementById("puzzleTable").style.display = "none";
-
-    const db = firebase.database();
-    let ref = db.ref("puzzles/" + urlParams.get("p") + "/");
-    if (ref) {
-      let puzzle = await getData(urlParams.get("p"));
-      curPuzzle = puzzle;
-      await loadPuzz();
-    }
-  } else {
-    // load list
-    await loadTable();
-    document.getElementById("tab-title").click();
-    document.getElementById("span-title").removeAttribute("hidden");
   }
 });
 
@@ -161,9 +213,9 @@ const getCellValue = (tr, idx) =>
 
 const comparer = (idx, asc) => (a, b) =>
   ((v1, v2) =>
-    v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2)
-      ? v1 - v2
-      : v1.toString().localeCompare(v2))(
+    v1 !== "" && v2 !== "" && !isNaN(v1) && !isNaN(v2) ?
+    v1 - v2 :
+    v1.toString().localeCompare(v2))(
     getCellValue(asc ? a : b, idx),
     getCellValue(asc ? b : a, idx)
   );
@@ -231,7 +283,7 @@ async function loadPuzz() {
       img.src = ref.imagelink;
       element.appendChild(img);
     }
-    document.getElementById("submitinput").value = "";
+    document.getElementById("submit-input").value = "";
     document.getElementById("submission").innerHTML = "";
     showResponse();
   }
@@ -239,7 +291,7 @@ async function loadPuzz() {
 
 function checkAns() {
   let ref = curPuzzle;
-  var elementinput = document.getElementById("submitinput");
+  var elementinput = document.getElementById("submit-input");
   var elementtext = document.getElementById("submission");
   let change = elementinput.value.match(/^[a-z0-9]+$/i);
   var cleaned = elementinput.value
@@ -267,9 +319,9 @@ function checkAns() {
         "'" +
         cleaned +
         "' was incorrect." +
-        (change === null
-          ? "<br2> Your answer was cleaned of any non-alphanumeric characters"
-          : "");
+        (change === null ?
+          "<br2> Your answer was cleaned of any non-alphanumeric characters" :
+          "");
       elementtext.style.color = "#fa4659";
     }
     window.localStorage.setItem("answers", JSON.stringify(answers));
@@ -278,7 +330,7 @@ function checkAns() {
 }
 
 function showResponse() {
-  document.getElementById("submitinput").value = ""; // get rid of previous input
+  document.getElementById("submit-input").value = ""; // get rid of previous input
   document.getElementById("col1").innerHTML = "";
   document.getElementById("col2").innerHTML = "";
   let count = 0;
