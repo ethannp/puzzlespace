@@ -28,15 +28,16 @@
         <br><br>
         <div style="margin-top:40px" class="box" id="login" hidden>
             <h1>Log-in</h1>
-            
+
             <label for="email">Email address</label>
-            <input type="text" name="email" id="email">
+            <input class="input-box" type="text" name="email" id="email">
             <br>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <input class="input-box" type="password" name="password" id="password">
             <br>
-            <button onclick="login()">Log-in</button>
-            <p>Don't have an account? Enter your information above then <a style="color:blue" onclick="register()">click here to create an account</a>.</p>
+            <button class="button" onclick="login()">Log-in</button>
+            <p>Don't have an account? Enter your information above then <a style="color:blue" onclick="register()">click
+                    here to create an account</a>.</p>
             <p id=loginStatus style="color:red"></p>
         </div>
         <div style="margin-top:40px" class="box" id="account" hidden>
@@ -45,7 +46,7 @@
             <a href="add.html">Create puzzle</a>
             <br>
             <br>
-            <button onclick="signout()">Log-out</button>
+            <button class="button" onclick="signout()">Log-out</button>
         </div>
     </main>
 </body>
