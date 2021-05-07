@@ -47,7 +47,7 @@ function signedin(user) {
   document.getElementById("info").innerHTML = `You are logged in as ${user.email}.`
 }
 
-function signout(){
+function signout() {
   firebase.auth().signOut();
   document.getElementById('loginStatus').innerHTML = "";
   document.getElementById("login").hidden = false;
@@ -73,7 +73,7 @@ let Puzzle = class {
     this.flavortext = flavortext;
     this.body = body.replaceAll("\n", "<br2>");
     this.imagelink = imagelink;
-    this.solution = solution.split(",");
+    this.solution = solution.replaceAll(" ","").split(",");
     this.puzzlelink = puzzlelink;
     this.solutionlink = solutionlink;
     this.difficulty = difficulty;
@@ -108,7 +108,7 @@ $(document).ready(async function () {
         }
       });
 
-      document.getElementById("puzzleCycle").style.display = "block";
+      document.getElementById("puzzle").style.display = "block";
       document.getElementById("bottom").style.display = "block";
       document.getElementById("puzzleTable").style.display = "none";
 
@@ -129,13 +129,48 @@ $(document).ready(async function () {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         signedin(user);
-      }
-      else{
+      } else {
         signout();
       }
     });
+  } else if(/add/.test(window.location.href)){
+    let search = window.location.search;
+    const urlParams = new URLSearchParams(search);
+    if(urlParams.has("p")){
+      //editing puzzle
+      document.getElementById("h1-add").innerHTML = "Edit Puzzle"
+      const db = firebase.database();
+      const slug = urlParams.get("p");
+      let snap = await db.ref(`/puzzles/${slug}`).once("value");
+      let val = snap.val();
+      document.getElementById("slug").value = slug;
+      document.getElementById("slug").readOnly = true;
+      document.getElementById("title-input").value = val.name;
+      document.getElementById("flavor-input").value = val.flavor;
+      document.getElementById("body-input").value = val.body.replaceAll("<br>", "\n\n");
+      document.getElementById("fromhunt").value = val.fromhunt;
+      document.getElementById("solution").value = val.solution;
+      document.getElementById("tags").value = val.tags;
+      refresh();
+    }
   }
+  
 });
+
+function submit() {
+  const db = firebase.database();
+  let puz = {
+    body: document.getElementById("body-input").value.replaceAll("\n\n", "<br>"),
+    flavor: document.getElementById("flavor-input").value,
+    fromhunt: document.getElementById("fromhunt").value,
+    name: document.getElementById("title-input").value,
+    slug: document.getElementById("slug").value,
+    solution: document.getElementById("solution").value.replaceAll(", ", ",").toLowerCase(),
+    tags: document.getElementById("tags").value.replaceAll(", ",",").toLowerCase()
+  }
+  db.ref(`/puzzles/${document.getElementById("slug").value}`).set(puz);
+  window.location.href = `/puzzles.html?p=${document.getElementById("slug").value}`
+}
 
 async function loadTable() {
   const db = firebase.database().ref("puzzles/");
@@ -153,7 +188,7 @@ async function loadTable() {
       let a_title = document.createElement("a");
       a_title.innerHTML = val[key].name;
       a_title.classList.add("link");
-      a_title.href = "puzzles.html?p=" + key;
+      a_title.href = "puzzles.html?p=" + val[key].slug;
       let fromhunt = document.createElement("td");
       fromhunt.classList.add("from-hunt");
       fromhunt.innerHTML = val[key].fromhunt;
@@ -266,11 +301,12 @@ async function getData(param) {
 
 async function loadPuzz() {
   var puz = document.createElement("div");
-  var element = document.getElementById("puzzleCycle");
+  var element = document.getElementById("puzzle");
   if (element != null) {
     element.appendChild(puz);
     let ref = curPuzzle;
     element.innerHTML =
+      `<a class="button" href=/add.html?p=${ref.slug}>Edit Puzzle</a>` +
       "<h2>" +
       ref.name +
       "</h2><h4>" +
