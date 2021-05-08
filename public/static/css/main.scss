@@ -31,6 +31,7 @@ body {
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 10px;
+  margin-top: 40px;
 }
 
 /* Navigation Bar  */
@@ -86,11 +87,14 @@ nav a:hover {
 .input-box {
   border-radius: 7px;
   border: 0.5px solid #000000;
-  padding: 11px;
-  width: 300px;
+  padding: 15px;
+  // width: 300px;
   height: 10px;
   font-family: "Nunito"; //font family is already defined in root
   margin-bottom: 8px;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: auto;
 }
 
 .input-box:focus {
@@ -103,7 +107,8 @@ textarea {
   border: 1px solid #000000;
   width: 100%;
   box-sizing: border-box;
-  margin-right: 10%;
+  height: 400px;
+  resize: none;
 }
 
 .button {
@@ -181,7 +186,7 @@ canvas {
   background-color: #f5f5f5;
 }
 
-/* Puzzle Table  */
+/* end of Puzzle Table  */
 
 #submit-input {
   display: inline;
@@ -256,13 +261,60 @@ main {
   position: absolute;
 }
 
+#slug {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#title-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#flavor-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#solution {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#tags {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#fromhunt {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* Small screens */
 
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 800px) {
+}
 
 /* Large screens */
 
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 800px) {
+  #wrapper {
+    min-height: 300px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  #PuzzleTable {
+    flex: 1;
+    width: 50%;
+  }
+
+  #sample {
+    margin-left: 20px;
+    width: 50%;
+  }
+}
 
 .link {
   transition: color 0.3s;
@@ -338,5 +390,5 @@ a.button {
   appearance: button;
 
   text-decoration: none;
-  color:white;
+  color: white;
 }

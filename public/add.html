@@ -26,25 +26,27 @@
   <header></header>
   <main>
     <br></br>
-    <div style="margin-top:40px" id='puzzleTable' class="box">
-      <h1 id="h1-add">Add Puzzle</h1>
-      <input class="input-box" id="slug" placeholder="Slug">
-      <br>
-      <input class="input-box" oninput="refresh()" id="title-input" type="text" placeholder="Puzzle Title">
-      <br>
-      <input class="input-box" id="flavor-input" style="width:90%" oninput="refresh()" id="flavor-input" type="text" placeholder="Flavortext">
-      <textarea id="body-input" oninput="refresh()" name="body" cols="100" rows="20"></textarea>
-      <br>
-      <input class="input-box" id="solution" type="text" placeholder="Answer(s) (will be normalized to [A-z0-9])">
-      <br>
-      <input class="input-box" id="tags" type="text" placeholder="Tags, use CSV">
-      <br>
-      <input class="input-box" id="fromhunt" type="text" placeholder="From hunt">
-      <br>
-      <button onclick="submit()">Submit</button>
-    </div>
-    <br>
-    <div id="sample" class="box" style="margin-top:0px; margin-bottom:20px;">
+    <div id="wrapper">
+      <div id='puzzleTable' class="box">
+        <h1 id="h1-add">Add Puzzle</h1>
+        <input class="input-box" id="slug" placeholder="Slug">
+        <br>
+        <input class="input-box" oninput="refresh()" id="title-input" type="text" placeholder="Puzzle Title">
+        <br>
+        <input class="input-box" id="flavor-input" oninput="refresh()" id="flavor-input" type="text"
+          placeholder="Flavortext">
+        <textarea id="body-input" oninput="refresh()" name="body"></textarea>
+        <br>
+        <input class="input-box" id="solution" type="text" placeholder="Answer(s) (will be normalized to [A-z0-9])">
+        <br>
+        <input class="input-box" id="tags" type="text" placeholder="Tags, use CSV">
+        <br>
+        <input class="input-box" id="fromhunt" type="text" placeholder="From hunt">
+        <br>
+        <button onclick="submit()">Submit</button>
+      </div>
+      <div id="sample" class="box">
+      </div>
     </div>
   </main>
 </body>

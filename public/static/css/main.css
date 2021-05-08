@@ -31,6 +31,7 @@ body {
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 10px;
+  margin-top: 40px;
 }
 
 /* Navigation Bar  */
@@ -86,11 +87,14 @@ nav a:hover {
 .input-box {
   border-radius: 7px;
   border: 0.5px solid #000000;
-  padding: 11px;
-  width: 300px;
+  padding: 15px;
   height: 10px;
   font-family: "Nunito";
   margin-bottom: 8px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  max-width: 100%;
+  width: auto;
 }
 
 .input-box:focus {
@@ -105,7 +109,8 @@ textarea {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  margin-right: 10%;
+  height: 400px;
+  resize: none;
 }
 
 .button {
@@ -183,7 +188,7 @@ canvas {
   background-color: #f5f5f5;
 }
 
-/* Puzzle Table  */
+/* end of Puzzle Table  */
 #submit-input {
   display: inline;
   padding-right: 8px;
@@ -260,8 +265,64 @@ main {
   position: absolute;
 }
 
+#slug {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#title-input {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#flavor-input {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#solution {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#tags {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#fromhunt {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 /* Small screens */
 /* Large screens */
+@media only screen and (min-width: 800px) {
+  #wrapper {
+    min-height: 300px;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  #PuzzleTable {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    width: 50%;
+  }
+  #sample {
+    margin-left: 20px;
+    width: 50%;
+  }
+}
+
 .link {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
