@@ -60,25 +60,25 @@ let Puzzle = class {
     hunt,
     flavortext,
     body,
-    imagelink,
     solution,
     puzzlelink,
     solutionlink,
     difficulty,
     tags,
-    slug
+    slug,
+    author
   ) {
     this.name = name;
     this.hunt = hunt;
     this.flavortext = flavortext;
     this.body = body.replaceAll("\n", "<br2>");
-    this.imagelink = imagelink;
-    this.solution = solution.replaceAll(" ","").split(",");
+    this.solution = solution.replaceAll(" ", "").split(",");
     this.puzzlelink = puzzlelink;
     this.solutionlink = solutionlink;
     this.difficulty = difficulty;
     this.tags = tags.split(",");
     this.slug = slug;
+    this.author = author;
   }
 };
 
@@ -133,10 +133,10 @@ $(document).ready(async function () {
         signout();
       }
     });
-  } else if(/add/.test(window.location.href)){
+  } else if (/add/.test(window.location.href)) {
     let search = window.location.search;
     const urlParams = new URLSearchParams(search);
-    if(urlParams.has("p")){
+    if (urlParams.has("p")) {
       //editing puzzle
       document.getElementById("h1-add").innerHTML = "Edit Puzzle"
       const db = firebase.database();
@@ -154,19 +154,31 @@ $(document).ready(async function () {
       refresh();
     }
   }
-  
+
 });
 
 function submit() {
   const db = firebase.database();
+  var user = firebase.auth().currentUser;
   let puz = {
     body: document.getElementById("body-input").value.replaceAll("\n\n", "<br>"),
     flavor: document.getElementById("flavor-input").value,
     fromhunt: document.getElementById("fromhunt").value,
     name: document.getElementById("title-input").value,
-    slug: document.getElementById("slug").value,
+    slug: document.getElementById("slug").value.toLowerCase(),
     solution: document.getElementById("solution").value.replaceAll(", ", ",").toLowerCase(),
-    tags: document.getElementById("tags").value.replaceAll(", ",",").toLowerCase()
+    tags: document.getElementById("tags").value.replaceAll(", ", ",").toLowerCase(),
+    author: user.uid
+  }
+  if (document.getElementById("body-input").value.includes("script")) {
+    return;
+  }
+  for (let key in puz) {
+    if (key == "flavor") {
+      continue;
+    } else if (puz[key] == null || puz[key] == "") {
+      return;
+    }
   }
   db.ref(`/puzzles/${document.getElementById("slug").value}`).set(puz);
   window.location.href = `/puzzles.html?p=${document.getElementById("slug").value}`
@@ -180,9 +192,16 @@ async function loadTable() {
     const table = document.getElementById("tab");
     for (const key in val) {
       let tr = document.createElement("tr");
-      //TODO: implement function that checks if answer has been submitted correctly in past
+
       let check = document.createElement("td");
       check.classList.add("check");
+      if (completed(val[key].slug)) {
+        let checkmark = document.createElement("img");
+        checkmark.classList.add("checkmark")
+        checkmark.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAuMjg1IDJsLTExLjI4NSAxMS41NjctNS4yODYtNS4wMTEtMy43MTQgMy43MTYgOSA4LjcyOCAxNS0xNS4yODV6Ii8+PC9zdmc+";
+        check.appendChild(checkmark);
+      }
+
       let title = document.createElement("td");
       title.classList.add("puzzleTitle");
       let a_title = document.createElement("a");
@@ -288,13 +307,13 @@ async function getData(param) {
     val.fromhunt,
     val.flavor,
     val.body,
-    val.imagelinks,
     val.solution,
     val.puzzlink,
     val.solutionlink,
     val.diff,
     val.tags,
-    val.slug
+    val.slug,
+    val.author
   );
   return puzz;
 }
@@ -302,22 +321,53 @@ async function getData(param) {
 async function loadPuzz() {
   var puz = document.createElement("div");
   var element = document.getElementById("puzzle");
+  var user = firebase.auth().currentUser;
+  var db = firebase.database();
   if (element != null) {
     element.appendChild(puz);
     let ref = curPuzzle;
-    element.innerHTML =
-      `<a class="button" href=/add.html?p=${ref.slug}>Edit Puzzle</a>` +
-      "<h2>" +
-      ref.name +
-      "</h2><h4>" +
-      ref.flavortext +
-      "</h4><p>" +
-      ref.body +
-      "</p>";
-    if (ref.imagelink != undefined) {
-      var img = document.createElement("img");
-      img.src = ref.imagelink;
-      element.appendChild(img);
+    if (user == null) {
+      element.innerHTML +=
+        "<h2>" +
+        ref.name +
+        "</h2><h4>" +
+        ref.flavortext +
+        "</h4><p>" +
+        ref.body +
+        "</p>";
+    } else if (curPuzzle.author == user.uid) {
+      element.innerHTML = `<a class="button" href=/add.html?p=${ref.slug}>Edit Puzzle</a>`;
+      element.innerHTML +=
+        "<h2>" +
+        ref.name +
+        "</h2><h4>" +
+        ref.flavortext +
+        "</h4><p>" +
+        ref.body +
+        "</p>";
+    } else {
+      db.ref('/admin/' + firebase.auth().currentUser.uid).once('value').then((snapshot) => {
+        if (snapshot.node_.value_) {
+          element.innerHTML = `<a class="button" href=/add.html?p=${ref.slug}>Edit Puzzle</a>`;
+          element.innerHTML +=
+            "<h2>" +
+            ref.name +
+            "</h2><h4>" +
+            ref.flavortext +
+            "</h4><p>" +
+            ref.body +
+            "</p>";
+        } else {
+          element.innerHTML +=
+            "<h2>" +
+            ref.name +
+            "</h2><h4>" +
+            ref.flavortext +
+            "</h4><p>" +
+            ref.body +
+            "</p>";
+        }
+      });
     }
     document.getElementById("submit-input").value = "";
     document.getElementById("submission").innerHTML = "";
@@ -371,7 +421,7 @@ function showResponse() {
   document.getElementById("col2").innerHTML = "";
   let count = 0;
   for (let i = answers.length - 1; i >= 0; i--) {
-    if (answers[i].slug == curPuzzle.slug && count < 20) {
+    if (answers[i].name == curPuzzle.slug && count < 20) {
       count++;
       var node = "";
       if (answers[i].correct) {
@@ -393,4 +443,13 @@ function showResponse() {
       }
     }
   }
+}
+
+function completed(slug) {
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i].name == slug && answers[i].correct) {
+      return true;
+    }
+  }
+  return false;
 }

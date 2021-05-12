@@ -3,9 +3,7 @@ $(document).ready(function () {
 `Use HTML to edit the puzzle body. You can use classic HTML tags such as 
 <ol><li>List elements</li></ol>
 <p style="color:red;text-align:center" id="red">Style tags</p>
-<style>
-td{text-align:center;} //styles
-</style>
+Use inline styles. &lt;style&gt; tags don't work.
 <table style="width: 100%;border:1px solid black">
 <tr><th>Tables</th><th>Header</th></tr>
 <tr><td>Table Element 1</td><td>Table Element 2</td></tr>
@@ -14,7 +12,8 @@ td{text-align:center;} //styles
 <h2 style="margin:0px">Big text</h2><sub>and small text</sub>
 
 <a href="/" target="_blank" >And clickable links</a>
-
+For images, use <a href="https://imgbb.com/ target="_blank">Imgbb</a> with a img tag 
+<img src="https://i.ibb.co/XjGXMCX/image.png" width="100%">
 <hr>
 Use double line breaks 
 
@@ -38,3 +37,20 @@ function refresh() {
             "</p>";
     }
 }
+
+document.getElementById('body-input').addEventListener('keydown', function(e) {
+    if (e.key == 'Tab') {
+      e.preventDefault();
+      var start = this.selectionStart;
+      var end = this.selectionEnd;
+  
+      // set textarea value to: text before caret + tab + text after caret
+      this.value = this.value.substring(0, start) +
+        "\t" + this.value.substring(end);
+  
+      // put caret at right position again
+      this.selectionStart =
+        this.selectionEnd = start + 1;
+    }
+  });
+  

@@ -24,7 +24,6 @@ body {
 
 .box {
   max-width: 900px;
-  margin: 0;
   border-radius: 7px;
   background: white;
   padding-top: 10px;
@@ -32,6 +31,8 @@ body {
   padding-left: 20px;
   padding-right: 10px;
   margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Navigation Bar  */
@@ -228,11 +229,12 @@ h4 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0px;
+  margin-top: 0px;
 }
 
 main {
   margin: auto;
-  max-width: 900px;
+  max-width: 1200px;
   width: 90%;
 }
 
@@ -293,8 +295,7 @@ main {
 
 /* Small screens */
 
-@media only screen and (max-width: 800px) {
-}
+@media only screen and (max-width: 800px) {}
 
 /* Large screens */
 
@@ -305,14 +306,14 @@ main {
     display: flex;
   }
 
-  #PuzzleTable {
+  #addPuzz {
     flex: 1;
     width: 50%;
   }
 
   #sample {
     margin-left: 20px;
-    width: 50%;
+    width: 45%;
   }
 }
 
@@ -391,4 +392,10 @@ a.button {
 
   text-decoration: none;
   color: white;
+}
+
+.checkmark {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
