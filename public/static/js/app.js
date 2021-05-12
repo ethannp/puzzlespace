@@ -165,29 +165,34 @@ $(document).ready(async function () {
 
 function submit() {
   const db = firebase.database();
-  var user = firebase.auth().currentUser;
-  let puz = {
-    body: document.getElementById("body-input").value.replaceAll("\n\n", "<br>"),
-    flavor: document.getElementById("flavor-input").value,
-    fromhunt: document.getElementById("fromhunt").value,
-    name: document.getElementById("title-input").value,
-    slug: document.getElementById("slug").value.toLowerCase(),
-    solution: document.getElementById("solution").value.replaceAll(", ", ",").toLowerCase(),
-    tags: document.getElementById("tags").value.replaceAll(", ", ",").toLowerCase(),
-    author: user.uid
-  }
-  if (document.getElementById("body-input").value.includes("script")) {
-    return;
-  }
-  for (let key in puz) {
-    if (key == "flavor") {
-      continue;
-    } else if (puz[key] == null || puz[key] == "") {
+  var user = firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      let puz = {
+        body: document.getElementById("body-input").value.replaceAll("\n\n", "<br>"),
+        flavor: document.getElementById("flavor-input").value,
+        fromhunt: document.getElementById("fromhunt").value,
+        name: document.getElementById("title-input").value,
+        slug: document.getElementById("slug").value.toLowerCase(),
+        solution: document.getElementById("solution").value.replaceAll(", ", ",").toLowerCase(),
+        tags: document.getElementById("tags").value.replaceAll(", ", ",").toLowerCase(),
+        author: user.uid
+      }
+      if (document.getElementById("body-input").value.includes("script")) {
+        return;
+      }
+      for (let key in puz) {
+        if (key == "flavor") {
+          continue;
+        } else if (puz[key] == null || puz[key] == "") {
+          return;
+        }
+      }
+      db.ref(`/puzzles/${document.getElementById("slug").value}`).set(puz);
+      window.location.href = `/puzzles.html?p=${document.getElementById("slug").value}`
+    } else {
       return;
     }
-  }
-  db.ref(`/puzzles/${document.getElementById("slug").value}`).set(puz);
-  window.location.href = `/puzzles.html?p=${document.getElementById("slug").value}`
+  });
 }
 
 async function loadTable() {
