@@ -133,6 +133,12 @@ $(document).ready(async function () {
         signout();
       }
     });
+    document.getElementById("password").addEventListener("keyup", function (event) {
+      if (event.keyCode == 13) {
+        event.preventDefault();
+        login();
+      }
+    });
   } else if (/add/.test(window.location.href)) {
     let search = window.location.search;
     const urlParams = new URLSearchParams(search);
